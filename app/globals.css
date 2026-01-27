@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Force Vercel Rebuild */
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -58,5 +56,108 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Manual implementation of tailwindcss-animate styles */
+@layer utilities {
+  .animate-in {
+    animation-name: enter;
+    animation-duration: 150ms;
+    --tw-enter-opacity: initial;
+    --tw-enter-scale: initial;
+    --tw-enter-rotate: initial;
+    --tw-enter-translate-x: initial;
+    --tw-enter-translate-y: initial;
+  }
+
+  .fade-in {
+    --tw-enter-opacity: 0;
+  }
+
+  .fade-in-0 {
+    --tw-enter-opacity: 0;
+  }
+
+  .fade-in-5 {
+    --tw-enter-opacity: 0.05;
+  }
+
+  .fade-in-10 {
+    --tw-enter-opacity: 0.1;
+  }
+
+  .fade-in-20 {
+    --tw-enter-opacity: 0.2;
+  }
+
+  .fade-in-25 {
+    --tw-enter-opacity: 0.25;
+  }
+
+  .fade-in-30 {
+    --tw-enter-opacity: 0.3;
+  }
+
+  .fade-in-40 {
+    --tw-enter-opacity: 0.4;
+  }
+
+  .fade-in-50 {
+    --tw-enter-opacity: 0.5;
+  }
+
+  .fade-in-60 {
+    --tw-enter-opacity: 0.6;
+  }
+
+  .fade-in-70 {
+    --tw-enter-opacity: 0.7;
+  }
+
+  .fade-in-75 {
+    --tw-enter-opacity: 0.75;
+  }
+
+  .fade-in-80 {
+    --tw-enter-opacity: 0.8;
+  }
+
+  .fade-in-90 {
+    --tw-enter-opacity: 0.9;
+  }
+
+  .fade-in-95 {
+    --tw-enter-opacity: 0.95;
+  }
+
+  .fade-in-100 {
+    --tw-enter-opacity: 1;
+  }
+
+  .zoom-in-95 {
+    --tw-enter-scale: 0.95;
+  }
+
+  .slide-in-from-top-2 {
+    --tw-enter-translate-y: -0.5rem;
+  }
+
+  .slide-in-from-bottom-2 {
+    --tw-enter-translate-y: 0.5rem;
+  }
+}
+
+@keyframes enter {
+  from {
+    opacity: var(--tw-enter-opacity, 1);
+    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0) scale3d(var(--tw-enter-scale, 1), var(--tw-enter-scale, 1), 1) rotate(var(--tw-enter-rotate, 0));
+  }
+}
+
+@keyframes exit {
+  to {
+    opacity: var(--tw-exit-opacity, 1);
+    transform: translate3d(var(--tw-exit-translate-x, 0), var(--tw-exit-translate-y, 0), 0) scale3d(var(--tw-exit-scale, 1), var(--tw-exit-scale, 1), 1) rotate(var(--tw-exit-rotate, 0));
   }
 }
