@@ -74,3 +74,30 @@ export async function deletePost(id: string) {
     revalidatePath("/admin/berita");
     revalidatePath("/berita");
 }
+
+export async function updatePost(id: string, formData: FormData) {
+    const title = formData.get("title") as string;
+    const content = formData.get("content") as string;
+    const excerpt = formData.get("excerpt") as string;
+    const image_url = formData.get("image_url") as string;
+
+    const { error } = await supabase
+        .from("posts")
+        .update({
+            title,
+            content,
+            excerpt,
+            image_url,
+        })
+        .eq("id", id);
+
+    if (error) {
+        console.error("Error updating post:", error);
+        return { error: "Failed to update post" };
+    }
+
+    revalidatePath("/admin/berita");
+    revalidatePath("/berita");
+    revalidatePath(`/berita/${id}`);
+    redirect("/admin/berita");
+}

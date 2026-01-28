@@ -8,6 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Save } from "lucide-react";
 import Link from "next/link";
 import { useFormStatus } from "react-dom";
+import ImageUpload from "@/components/ImageUpload";
+import { useState } from "react";
 
 function SubmitButton() {
     const { pending } = useFormStatus();
@@ -20,6 +22,8 @@ function SubmitButton() {
 }
 
 export default function CreateGaleriPage() {
+    const [imageUrl, setImageUrl] = useState("");
+
     return (
         <div className="space-y-6">
             <div className="flex items-center gap-4">
@@ -57,11 +61,9 @@ export default function CreateGaleriPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="image_url">URL Gambar</Label>
-                            <Input id="image_url" name="image_url" placeholder="https://example.com/image.jpg" required />
-                            <p className="text-xs text-muted-foreground">
-                                *Gunakan URL gambar eksternal.
-                            </p>
+                            <Label>Foto</Label>
+                            <ImageUpload onUpload={setImageUrl} bucket="images" />
+                            <input type="hidden" name="image_url" value={imageUrl} required />
                         </div>
 
                         <div className="flex justify-end">

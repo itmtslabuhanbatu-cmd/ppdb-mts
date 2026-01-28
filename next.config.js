@@ -7,6 +7,14 @@ const nextConfig = {
         ignoreBuildErrors: true,
     },
     output: "standalone",
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '**.supabase.co',
+            },
+        ],
+    },
 };
 
 module.exports = nextConfig;
