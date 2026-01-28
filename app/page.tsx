@@ -1,17 +1,37 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { news, carouselImages, headmasterMessage } from "@/lib/data";
+import { getSettings } from "@/app/actions/settings";
+import { getPosts } from "@/app/actions/posts";
+import { headmasterMessage as defaultHeadmaster } from "@/lib/data";
 import { ArrowRight, BookOpen, GraduationCap, Image as ImageIcon, Calendar, Bell, ChevronRight, Star } from "lucide-react";
 import HeroSlider from "@/components/HeroSlider";
 import RunningText from "@/components/RunningText";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
+import Image from "next/image";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export default async function Home() {
+  let runningTextData = null;
+  let headmasterData = null;
+  let posts = [];
+
+  try {
+    runningTextData = await getSettings("running_text");
+    headmasterData = await getSettings("headmaster");
+    posts = await getPosts();
+  } catch (error) {
+    console.error("Failed to fetch home data:", error);
+  }
+
+  const latestPosts = posts.slice(0, 4);
+  const headmaster = headmasterData || defaultHeadmaster;
+
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
       {/* Running Text */}
-      <RunningText />
+      <RunningText text={runningTextData?.text} />
 
       {/* Hero Section */}
       <HeroSlider />
@@ -85,42 +105,54 @@ export default function Home() {
                   </Link>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {news.map((item) => (
-                    <Card key={item.id} className="overflow-hidden flex flex-col h-full hover:shadow-md transition-shadow group">
-                      <div className="relative h-48 w-full overflow-hidden">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute top-2 right-2 bg-primary text-white text-xs px-2 py-1 rounded shadow-sm">
-                          Berita
+                  {latestPosts.length === 0 ? (
+                    <div className="col-span-full text-center py-12 text-muted-foreground bg-white rounded-lg border border-dashed">
+                      Belum ada berita terbaru.
+                    </div>
+                  ) : (
+                    latestPosts.map((item: any) => (
+                      <Card key={item.id} className="overflow-hidden flex flex-col h-full hover:shadow-md transition-shadow group">
+                        <div className="relative h-48 w-full overflow-hidden">
+                          <Image
+                            src={item.image_url || "https://images.unsplash.com/photo-1503676260728-1c00da094a0b"}
+                            alt={item.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          />
+                          <div className="absolute top-2 right-2 bg-primary text-white text-xs px-2 py-1 rounded shadow-sm">
+                            Berita
+                          </div>
                         </div>
-                      </div>
-                      <CardContent className="flex-1 pt-4">
-                        <div className="mb-3 flex items-center gap-2 text-xs text-muted-foreground">
-                          <Calendar className="h-3 w-3 text-secondary" />
-                          <span>{item.date}</span>
-                        </div>
-                        <h3 className="mb-2 text-lg font-bold leading-tight text-slate-800 group-hover:text-primary transition-colors">
-                          <Link href={`/berita/${item.id}`} className="line-clamp-2">
-                            {item.title}
-                          </Link>
-                        </h3>
-                        <p className="line-clamp-3 text-sm text-muted-foreground">
-                          {item.excerpt}
-                        </p>
-                      </CardContent>
-                      <CardFooter className="pt-0">
-                        <Button asChild variant="link" className="px-0 text-primary p-0 h-auto font-semibold">
-                          <Link href={`/berita/${item.id}`} className="flex items-center gap-1">
-                            Baca Selengkapnya <ChevronRight className="h-3 w-3" />
-                          </Link>
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  ))}
+                        <CardContent className="flex-1 pt-4">
+                          <div className="mb-3 flex items-center gap-2 text-xs text-muted-foreground">
+                            <Calendar className="h-3 w-3 text-secondary" />
+                            <span>
+                              {new Date(item.created_at).toLocaleDateString("id-ID", {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                              })}
+                            </span>
+                          </div>
+                          <h3 className="mb-2 text-lg font-bold leading-tight text-slate-800 group-hover:text-primary transition-colors">
+                            <Link href={`/berita/${item.id}`} className="line-clamp-2">
+                              {item.title}
+                            </Link>
+                          </h3>
+                          <p className="line-clamp-3 text-sm text-muted-foreground">
+                            {item.excerpt}
+                          </p>
+                        </CardContent>
+                        <CardFooter className="pt-0">
+                          <Button asChild variant="link" className="px-0 text-primary p-0 h-auto font-semibold">
+                            <Link href={`/berita/${item.id}`} className="flex items-center gap-1">
+                              Baca Selengkapnya <ChevronRight className="h-3 w-3" />
+                            </Link>
+                          </Button>
+                        </CardFooter>
+                      </Card>
+                    ))
+                  )}
                 </div>
               </div>
 
@@ -140,17 +172,17 @@ export default function Home() {
                 <CardContent className="p-0">
                   <div className="relative h-48 w-full">
                     <Image
-                      src={headmasterMessage.image}
-                      alt={headmasterMessage.name}
+                      src={headmaster.image}
+                      alt={headmaster.name}
                       fill
                       className="object-cover"
                     />
                   </div>
                   <div className="p-5">
-                    <h4 className="font-bold text-primary text-lg mb-1">{headmasterMessage.name}</h4>
+                    <h4 className="font-bold text-primary text-lg mb-1">{headmaster.name}</h4>
                     <p className="text-xs text-muted-foreground mb-4 uppercase tracking-wider">Kepala Madrasah</p>
                     <p className="text-sm text-slate-600 line-clamp-4 italic mb-4">
-                      "{headmasterMessage.message}"
+                      "{headmaster.message}"
                     </p>
                     <Button asChild size="sm" variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-white">
                       <Link href="/profil">Baca Selengkapnya</Link>

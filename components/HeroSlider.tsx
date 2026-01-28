@@ -6,9 +6,11 @@ import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
-import { carouselImages } from "@/lib/data";
+import { carouselImages as defaultImages } from "@/lib/data";
 
-export default function HeroSlider() {
+export default function HeroSlider({ images }: { images?: string[] }) {
+    const displayImages = images && images.length > 0 ? images : defaultImages;
+
     const [emblaRef] = useEmblaCarousel({ loop: true }, [
         Autoplay({ delay: 5000 }),
     ]);
@@ -19,7 +21,7 @@ export default function HeroSlider() {
 
             <div className="embla h-full" ref={emblaRef}>
                 <div className="embla__container h-full flex">
-                    {carouselImages.map((src, index) => (
+                    {displayImages.map((src, index) => (
                         <div className="embla__slide relative h-full w-full flex-[0_0_100%]" key={index}>
                             <Image
                                 src={src}

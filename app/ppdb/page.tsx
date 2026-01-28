@@ -3,6 +3,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Search, UserPlus, Calendar, FileText, CheckCircle, AlertCircle } from "lucide-react";
+import Link from "next/link";
+import { checkStatus } from "@/app/actions/ppdb-public";
+import { redirect } from "next/navigation";
+
+export const dynamic = "force-dynamic";
 
 export default function PPDBPage() {
     return (
@@ -155,10 +160,20 @@ export default function PPDBPage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <div className="flex w-full items-center space-x-2">
-                                <Input type="text" placeholder="Masukkan NISN" />
-                                <Button type="submit">Cek</Button>
-                            </div>
+                            <form action={async (formData) => {
+                                "use server";
+                                const result = await checkStatus(formData);
+                                if (result.data) {
+                                    redirect(`/ppdb/status?nisn=${formData.get("nisn")}`);
+                                } else {
+                                    redirect(`/ppdb/status?error=not_found`);
+                                }
+                            }}>
+                                <div className="flex w-full items-center space-x-2">
+                                    <Input type="text" name="nisn" placeholder="Masukkan NISN" required />
+                                    <Button type="submit">Cek</Button>
+                                </div>
+                            </form>
                         </CardContent>
                     </Card>
 
@@ -170,15 +185,12 @@ export default function PPDBPage() {
                                 <CardTitle>Formulir Pendaftaran</CardTitle>
                             </div>
                             <CardDescription>
-                                Silahkan login atau buat akun untuk mengisi formulir.
+                                Silahkan isi formulir pendaftaran secara online.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            <Button className="w-full bg-primary hover:bg-primary/90">
-                                Login Calon Siswa
-                            </Button>
-                            <Button variant="outline" className="w-full">
-                                Buat Akun Baru
+                            <Button asChild className="w-full bg-primary hover:bg-primary/90">
+                                <Link href="/ppdb/register">Daftar Sekarang</Link>
                             </Button>
                         </CardContent>
                     </Card>

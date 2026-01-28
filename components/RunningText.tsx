@@ -3,7 +3,10 @@
 import React from "react";
 import { Bell } from "lucide-react";
 
-export default function RunningText() {
+export default function RunningText({ text }: { text?: string }) {
+    const defaultText = "Selamat datang di MTsN 1 Labuhanbatu. Unggul dalam Prestasi, Terampil, Ber-Akhlak & Berwawasan Lingkungan";
+    const displayText = text || defaultText;
+
     return (
         <div className="bg-primary text-primary-foreground py-2 overflow-hidden relative flex items-center z-40 border-b border-primary-foreground/10">
             <div className="container flex items-center max-w-full">
@@ -14,13 +17,13 @@ export default function RunningText() {
                 <div className="flex-1 overflow-hidden relative h-6">
                     <div className="absolute whitespace-nowrap animate-marquee top-0 left-0 flex items-center h-full">
                         <span className="mx-4 text-sm font-medium">
-                            Selamat datang di MTsN 1 Labuhanbatu. Unggul dalam Prestasi, Terampil, Ber-Akhlak & Berwawasan Lingkungan
+                            {displayText}
                         </span>
                         <span className="mx-4 text-sm font-medium">
                             •
                         </span>
                         <span className="mx-4 text-sm font-medium">
-                            Penerimaan Peserta Didik Baru (PPDB) Tahun Pelajaran 2025/2026 Telah Dibuka!
+                            {displayText}
                         </span>
                     </div>
                 </div>
