@@ -254,6 +254,22 @@ export default function Home() {
                 </CardContent>
               </Card>
 
+              {/* Quotes Widget */}
+              <Card className="shadow-md bg-secondary/10 border-secondary/20">
+                <div className="p-4 border-b border-secondary/20">
+                  <h3 className="font-bold text-lg text-primary flex items-center gap-2">
+                    <BookOpen className="h-5 w-5" />
+                    Kata Mutiara
+                  </h3>
+                </div>
+                <CardContent className="p-4">
+                  <blockquote className="italic text-slate-700 text-sm border-l-4 border-secondary pl-4 py-2">
+                    "Pendidikan adalah senjata paling ampuh yang bisa digunakan untuk mengubah dunia."
+                  </blockquote>
+                  <p className="text-right text-xs font-bold text-primary mt-2">- Nelson Mandela</p>
+                </CardContent>
+              </Card>
+
             </div>
           </div>
         </div>
