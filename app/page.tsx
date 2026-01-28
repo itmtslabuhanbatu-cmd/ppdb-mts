@@ -4,43 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { news, carouselImages, headmasterMessage } from "@/lib/data";
 import { ArrowRight, BookOpen, GraduationCap, Image as ImageIcon, Calendar, Bell, ChevronRight, Star } from "lucide-react";
+import HeroSlider from "@/components/HeroSlider";
+import RunningText from "@/components/RunningText";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
+      {/* Running Text */}
+      <RunningText />
+
       {/* Hero Section */}
-      <section className="relative h-[600px] w-full overflow-hidden bg-slate-900">
-        <div className="absolute inset-0">
-          <Image
-            src={carouselImages[0]}
-            alt="School Activity"
-            fill
-            className="object-cover opacity-60"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent" />
-        </div>
-        <div className="relative container flex h-full flex-col items-center justify-center text-center text-white">
-          <div className="mb-6 inline-flex items-center rounded-full border border-secondary/50 bg-secondary/10 px-3 py-1 text-sm text-secondary backdrop-blur-sm">
-            <span className="flex h-2 w-2 rounded-full bg-secondary mr-2 animate-pulse"></span>
-            Penerimaan Peserta Didik Baru (PPDB) Telah Dibuka
-          </div>
-          <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-7xl max-w-4xl drop-shadow-lg">
-            Unggul dalam <span className="text-secondary">Prestasi</span>, <span className="text-secondary">Terampil</span>, <span className="text-secondary">Ber-Akhlak</span> & Berwawasan Lingkungan
-          </h1>
-          <p className="mb-8 max-w-2xl text-lg text-slate-200 drop-shadow-md">
-            MTsN 1 Labuhanbatu berkomitmen mencetak kader bangsa yang unggul dalam IMTAQ dan IPTEK.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-bold px-8">
-              <Link href="/ppdb">Daftar Sekarang</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="bg-white/10 text-white border-white/20 hover:bg-white/20 hover:text-white backdrop-blur-sm">
-              <Link href="/profil">Profil Madrasah</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <HeroSlider />
 
       {/* Portal Layout Section */}
       <section className="py-12 md:py-16">
