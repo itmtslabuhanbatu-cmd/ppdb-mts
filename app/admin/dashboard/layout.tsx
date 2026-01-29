@@ -3,7 +3,7 @@
 import { SessionProvider } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, Image as ImageIcon, Settings, Users, LogOut, GraduationCap } from "lucide-react";
+import { LayoutDashboard, FileText, Image as ImageIcon, Settings, Users, LogOut, GraduationCap, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signOut } from "next-auth/react";
 
@@ -21,6 +21,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
     const sidebarItems = [
         { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
         { name: "Berita & Artikel", href: "/admin/berita", icon: FileText },
+        { name: "Pengumuman", href: "/admin/pengumuman", icon: Bell },
         { name: "Galeri Foto", href: "/admin/galeri", icon: ImageIcon },
         { name: "Data PPDB", href: "/admin/ppdb", icon: Users },
         { name: "Pengaturan", href: "/admin/settings", icon: Settings },
@@ -44,8 +45,8 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
                                 key={item.href}
                                 href={item.href}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors ${isActive
-                                        ? "bg-primary/10 text-primary"
-                                        : "text-slate-600 hover:bg-slate-50 hover:text-primary"
+                                    ? "bg-primary/10 text-primary"
+                                    : "text-slate-600 hover:bg-slate-50 hover:text-primary"
                                     }`}
                             >
                                 <item.icon className="h-5 w-5" />

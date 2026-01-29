@@ -1,5 +1,6 @@
 import { getSettings } from "@/app/actions/settings";
 import { getPosts } from "@/app/actions/posts";
+import { getAnnouncements } from "@/app/actions/announcements";
 import { headmasterMessage as defaultHeadmaster } from "@/lib/data";
 import { ArrowRight, BookOpen, GraduationCap, Image as ImageIcon, Calendar, Bell, ChevronRight, Star } from "lucide-react";
 import HeroSlider from "@/components/HeroSlider";
@@ -17,12 +18,14 @@ export default async function Home() {
   let headmasterData = null;
   let heroSliderData = null;
   let posts = [];
+  let announcements = [];
 
   try {
     runningTextData = await getSettings("running_text");
     headmasterData = await getSettings("headmaster");
     heroSliderData = await getSettings("hero_slider");
     posts = await getPosts();
+    announcements = await getAnnouncements();
   } catch (error) {
     console.error("Failed to fetch home data:", error);
   }
@@ -203,21 +206,32 @@ export default async function Home() {
                 </div>
                 <CardContent className="p-0">
                   <ul className="divide-y">
-                    {[1, 2, 3].map((i) => (
-                      <li key={i} className="p-4 hover:bg-slate-50 transition-colors">
-                        <Link href="#" className="block group">
-                          <span className="text-xs font-semibold text-secondary-foreground bg-secondary/20 px-2 py-0.5 rounded mb-2 inline-block">
-                            Pengumuman
-                          </span>
-                          <h4 className="text-sm font-medium text-slate-700 group-hover:text-primary transition-colors mb-1">
-                            Jadwal Ujian Semester Genap Tahun Ajaran 2025/2026
-                          </h4>
-                          <span className="text-xs text-muted-foreground flex items-center gap-1">
-                            <Calendar className="h-3 w-3" /> 12 Januari 2026
-                          </span>
-                        </Link>
+                    {announcements.length === 0 ? (
+                      <li className="p-4 text-center text-sm text-muted-foreground">
+                        Belum ada pengumuman.
                       </li>
-                    ))}
+                    ) : (
+                      announcements.slice(0, 5).map((item: any) => (
+                        <li key={item.id} className="p-4 hover:bg-slate-50 transition-colors">
+                          <Link href="#" className="block group">
+                            <span className="text-xs font-semibold text-secondary-foreground bg-secondary/20 px-2 py-0.5 rounded mb-2 inline-block">
+                              Pengumuman
+                            </span>
+                            <h4 className="text-sm font-medium text-slate-700 group-hover:text-primary transition-colors mb-1">
+                              {item.title}
+                            </h4>
+                            <span className="text-xs text-muted-foreground flex items-center gap-1">
+                              <Calendar className="h-3 w-3" />
+                              {new Date(item.date).toLocaleDateString("id-ID", {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                              })}
+                            </span>
+                          </Link>
+                        </li>
+                      ))
+                    )}
                   </ul>
                 </CardContent>
                 <CardFooter className="p-3 bg-slate-50 border-t">
