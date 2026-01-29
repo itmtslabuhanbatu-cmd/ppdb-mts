@@ -15,11 +15,13 @@ export const revalidate = 0;
 export default async function Home() {
   let runningTextData = null;
   let headmasterData = null;
+  let heroSliderData = null;
   let posts = [];
 
   try {
     runningTextData = await getSettings("running_text");
     headmasterData = await getSettings("headmaster");
+    heroSliderData = await getSettings("hero_slider");
     posts = await getPosts();
   } catch (error) {
     console.error("Failed to fetch home data:", error);
@@ -34,7 +36,7 @@ export default async function Home() {
       <RunningText text={runningTextData?.text} />
 
       {/* Hero Section */}
-      <HeroSlider />
+      <HeroSlider images={heroSliderData?.images} />
 
       {/* Portal Layout Section */}
       <section className="py-12 md:py-16">

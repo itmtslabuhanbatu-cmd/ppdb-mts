@@ -24,6 +24,8 @@ export async function updateSettings(formData: FormData) {
     const headmasterMessage = formData.get("headmaster_message") as string;
     const headmasterImage = formData.get("headmaster_image") as string;
 
+    const heroSliderImages = formData.get("hero_slider_images") as string;
+
     // Update Running Text
     await supabase
         .from("settings")
@@ -40,6 +42,21 @@ export async function updateSettings(formData: FormData) {
                 image: headmasterImage
             }
         });
+
+    // Update Hero Slider
+    if (heroSliderImages) {
+        try {
+            const images = JSON.parse(heroSliderImages);
+            await supabase
+                .from("settings")
+                .upsert({
+                    key: "hero_slider",
+                    value: { images }
+                });
+        } catch (e) {
+            console.error("Failed to parse hero slider images", e);
+        }
+    }
 
     revalidatePath("/");
     revalidatePath("/admin/settings");
