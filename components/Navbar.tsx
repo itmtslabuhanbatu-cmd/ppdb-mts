@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, GraduationCap, Phone, Mail, Facebook, Instagram, Youtube } from "lucide-react";
+import { Menu, Phone, Mail, Facebook, Instagram, Youtube } from "lucide-react";
+import NextImage from "next/image";
 
 export default function Navbar() {
     const navLinks = [
@@ -45,9 +46,7 @@ export default function Navbar() {
             <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
                 <div className="container flex h-20 items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="bg-primary p-2 rounded-lg">
-                            <GraduationCap className="h-8 w-8 text-white" />
-                        </div>
+                        <NextImage src="/logo.png" alt="Logo MTsN 1 Labuhanbatu" width={48} height={48} className="h-12 w-12 object-contain" />
                         <div className="flex flex-col">
                             <span className="text-xl font-bold leading-none text-primary">
                                 MTsN 1
@@ -86,9 +85,7 @@ export default function Navbar() {
                             <SheetContent side="right">
                                 <div className="flex flex-col gap-6 mt-8">
                                     <div className="flex items-center gap-3 mb-4">
-                                        <div className="bg-primary p-2 rounded-lg">
-                                            <GraduationCap className="h-6 w-6 text-white" />
-                                        </div>
+                                        <NextImage src="/logo.png" alt="Logo MTsN 1 Labuhanbatu" width={40} height={40} className="h-10 w-10 object-contain" />
                                         <div className="flex flex-col">
                                             <span className="text-lg font-bold leading-none text-primary">
                                                 MTsN 1

@@ -1,5 +1,6 @@
-import { GraduationCap, MapPin, Phone, Mail, Facebook, Instagram, Youtube } from "lucide-react";
+import { MapPin, Phone, Mail, Facebook, Instagram, Youtube } from "lucide-react";
 import Link from "next/link";
+import NextImage from "next/image";
 
 export default function Footer() {
     return (
@@ -8,9 +9,7 @@ export default function Footer() {
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
                     <div className="space-y-4">
                         <div className="flex items-center gap-2">
-                            <div className="bg-white/10 p-2 rounded-lg">
-                                <GraduationCap className="h-8 w-8 text-secondary" />
-                            </div>
+                            <NextImage src="/logo.png" alt="Logo MTsN 1 Labuhanbatu" width={40} height={40} className="h-10 w-10 object-contain" />
                             <span className="text-xl font-bold text-white">MTsN 1 Labuhanbatu</span>
                         </div>
                         <p className="text-sm text-primary-foreground/80 leading-relaxed">
