@@ -80,68 +80,66 @@ export default function PPDBForm({ initialData, userId }: { initialData: any, us
                 <input type="hidden" name="photo_url" value={photoUrl} />
 
                 {/* --- DATA PRIBADI --- */}
-                        </div>
-                        <div className="space-y-2">
-                            <Label>NIK</Label>
-                            <Input name="nik" defaultValue={val("nik")} placeholder="16 digit angka" />
-                        </div>
-                        <div className="space-y-2">
-                            <Label>No. KK</Label>
-                            <Input name="kk" defaultValue={val("kk")} placeholder="16 digit angka" />
-                        </div>
-                        <div className="space-y-2">
-                            <Label>Tempat Lahir</Label>
-                            <Input name="birth_place" defaultValue={val("birth_place")} />
-                        </div>
-                        <div className="space-y-2">
-                            <Label>Tanggal Lahir</Label>
-                            <Input name="birth_date" type="date" defaultValue={val("birth_date")} />
-                        </div>
-                        <div className="space-y-2">
-                            <Label>Jenis Kelamin</Label>
-                            <select name="gender" className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" defaultValue={val("gender")}>
-                                <option value="">Pilih...</option>
-                                <option value="L">Laki-laki</option>
-                                <option value="P">Perempuan</option>
-                            </select>
-                        </div>
-                        <div className="space-y-2">
-                            <Label>Agama</Label>
-                            <select name="religion" className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" defaultValue={val("religion")}>
-                                <option value="Islam">Islam</option>
-                                <option value="Kristen">Kristen</option>
-                                <option value="Katolik">Katolik</option>
-                                <option value="Hindu">Hindu</option>
-                                <option value="Buddha">Buddha</option>
-                                <option value="Konghucu">Konghucu</option>
-                            </select>
-                        </div>
-                        <div className="space-y-2">
-                            <Label>Anak ke-</Label>
-                            <Input name="child_order" type="number" defaultValue={val("child_order")} />
-                        </div>
-                        <div className="space-y-2">
-                            <Label>Jumlah Saudara</Label>
-                            <Input name="siblings_count" type="number" defaultValue={val("siblings_count")} />
-                        </div>
-                        <div className="space-y-2">
-                            <Label>Cita-cita</Label>
-                            <Input name="ambition" defaultValue={val("ambition")} />
-                        </div>
-                        <div className="space-y-2">
-                            <Label>Hobi</Label>
-                            <Input name="hobby" defaultValue={val("hobby")} />
-                        </div>
-                        <div className="space-y-2">
-                            <Label>No. HP / WA Siswa (jika ada)</Label>
-                            <Input name="phone" defaultValue={val("phone")} />
-                        </div>
-                    </div >
-                </div >
+                <div className={activeTab === "pribadi" ? "block space-y-4" : "hidden"}>
+                    <div className="space-y-2">
+                        <Label>NIK</Label>
+                        <Input name="nik" defaultValue={val("nik")} placeholder="16 digit angka" />
+                    </div>
+                    <div className="space-y-2">
+                        <Label>No. KK</Label>
+                        <Input name="kk" defaultValue={val("kk")} placeholder="16 digit angka" />
+                    </div>
+                    <div className="space-y-2">
+                        <Label>Tempat Lahir</Label>
+                        <Input name="birth_place" defaultValue={val("birth_place")} />
+                    </div>
+                    <div className="space-y-2">
+                        <Label>Tanggal Lahir</Label>
+                        <Input name="birth_date" type="date" defaultValue={val("birth_date")} />
+                    </div>
+                    <div className="space-y-2">
+                        <Label>Jenis Kelamin</Label>
+                        <select name="gender" className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" defaultValue={val("gender")}>
+                            <option value="">Pilih...</option>
+                            <option value="L">Laki-laki</option>
+                            <option value="P">Perempuan</option>
+                        </select>
+                    </div>
+                    <div className="space-y-2">
+                        <Label>Agama</Label>
+                        <select name="religion" className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" defaultValue={val("religion")}>
+                            <option value="Islam">Islam</option>
+                            <option value="Kristen">Kristen</option>
+                            <option value="Katolik">Katolik</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Buddha">Buddha</option>
+                            <option value="Konghucu">Konghucu</option>
+                        </select>
+                    </div>
+                    <div className="space-y-2">
+                        <Label>Anak ke-</Label>
+                        <Input name="child_order" type="number" defaultValue={val("child_order")} />
+                    </div>
+                    <div className="space-y-2">
+                        <Label>Jumlah Saudara</Label>
+                        <Input name="siblings_count" type="number" defaultValue={val("siblings_count")} />
+                    </div>
+                    <div className="space-y-2">
+                        <Label>Cita-cita</Label>
+                        <Input name="ambition" defaultValue={val("ambition")} />
+                    </div>
+                    <div className="space-y-2">
+                        <Label>Hobi</Label>
+                        <Input name="hobby" defaultValue={val("hobby")} />
+                    </div>
+                    <div className="space-y-2">
+                        <Label>No. HP / WA Siswa (jika ada)</Label>
+                        <Input name="phone" defaultValue={val("phone")} />
+                    </div>
+                </div>
 
-        {/* --- ALAMAT --- */ }
-        < div className = { activeTab === "alamat" ? "block space-y-4" : "hidden"
-}>
+                {/* --- ALAMAT --- */}
+                <div className={activeTab === "alamat" ? "block space-y-4" : "hidden"}>
                     <div className="space-y-2">
                         <Label>Alamat Lengkap (Jalan/Dusun/Lingkungan)</Label>
                         <Input name="address" defaultValue={val("address")} />
@@ -177,12 +175,12 @@ export default function PPDBForm({ initialData, userId }: { initialData: any, us
                             <Input name="transport" defaultValue={val("transport")} placeholder="Misal: Jalan kaki, Sepeda Motor, Angkot" />
                         </div>
                     </div>
-                </div >
+                </div>
 
-    {/* --- ORANG TUA --- */ }
-    < div className = { activeTab === "ortu" ? "block space-y-8" : "hidden"}>
-        {/* AYAH */ }
-        < div className = "space-y-4" >
+                {/* --- ORANG TUA --- */}
+                <div className={activeTab === "ortu" ? "block space-y-8" : "hidden"}>
+                    {/* AYAH */}
+                    <div className="space-y-4">
                         <h3 className="font-semibold text-lg text-green-700 border-b pb-2">Data Ayah Kandung</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
@@ -218,10 +216,10 @@ export default function PPDBForm({ initialData, userId }: { initialData: any, us
                                 <Input name="father_phone" defaultValue={val("father_phone")} />
                             </div>
                         </div>
-                    </div >
+                    </div>
 
-    {/* IBU */ }
-    < div className = "space-y-4" >
+                    {/* IBU */}
+                    <div className="space-y-4">
                         <h3 className="font-semibold text-lg text-green-700 border-b pb-2">Data Ibu Kandung</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
@@ -257,11 +255,11 @@ export default function PPDBForm({ initialData, userId }: { initialData: any, us
                                 <Input name="mother_phone" defaultValue={val("mother_phone")} />
                             </div>
                         </div>
-                    </div >
-                </div >
+                    </div>
+                </div>
 
-    {/* --- SEKOLAH ASAL & KIP --- */ }
-    < div className = { activeTab === "sekolah" ? "block space-y-6" : "hidden"}>
+                {/* --- SEKOLAH ASAL & KIP --- */}
+                <div className={activeTab === "sekolah" ? "block space-y-6" : "hidden"}>
                     <div className="space-y-2">
                         <Label>Nama Sekolah Asal (SD / MI)</Label>
                         <Input name="school_origin" defaultValue={val("school_origin")} placeholder="Contoh: MIN 1 Labuhanbatu" required />
@@ -280,16 +278,16 @@ export default function PPDBForm({ initialData, userId }: { initialData: any, us
                             </div>
                         </div>
                     </div>
-                </div >
+                </div>
 
-    {/* Submit Action */ }
-    < div className = "pt-8 mt-4 border-t" >
+                {/* Submit Action */}
+                <div className="pt-8 mt-4 border-t">
                     <SubmitButton />
                     <p className="text-xs text-center text-gray-500 mt-4">
                         Pastikan semua data sudah benar sebelum disimpan. Data dapat diedit kembali selama periode pendaftaran dibuka.
                     </p>
-                </div >
-            </form >
-        </div >
+                </div>
+            </form>
+        </div>
     );
 }
