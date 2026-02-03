@@ -160,20 +160,12 @@ export default function PPDBPage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <form action={async (formData) => {
-                                "use server";
-                                const result = await checkStatus(formData);
-                                if (result.data) {
-                                    redirect(`/ppdb/status?nisn=${formData.get("nisn")}`);
-                                } else {
-                                    redirect(`/ppdb/status?error=not_found`);
-                                }
-                            }}>
-                                <div className="flex w-full items-center space-x-2">
-                                    <Input type="text" name="nisn" placeholder="Masukkan NISN" required />
-                                    <Button type="submit">Cek</Button>
-                                </div>
-                            </form>
+                            <div className="space-y-3">
+                                <p className="text-sm text-gray-500">Sudah mendaftar? Silakan login untuk melihat status & cetak kartu.</p>
+                                <Button asChild variant="outline" className="w-full">
+                                    <Link href="/ppdb/login">Login Siswa</Link>
+                                </Button>
+                            </div>
                         </CardContent>
                     </Card>
 
@@ -190,7 +182,7 @@ export default function PPDBPage() {
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <Button asChild className="w-full bg-primary hover:bg-primary/90">
-                                <Link href="/ppdb/register">Daftar Sekarang</Link>
+                                <Link href="/ppdb/register-account">Buat Akun & Daftar</Link>
                             </Button>
                         </CardContent>
                     </Card>

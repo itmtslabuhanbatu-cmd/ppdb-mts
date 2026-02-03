@@ -1,3 +1,4 @@
+// PTSP & Telegram Integration Added
 import { getSettings } from "@/app/actions/settings";
 import { getPosts } from "@/app/actions/posts";
 import { getAnnouncements } from "@/app/actions/announcements";
@@ -6,9 +7,11 @@ import { ArrowRight, BookOpen, GraduationCap, Image as ImageIcon, Calendar, Bell
 import HeroSlider from "@/components/HeroSlider";
 import RunningText from "@/components/RunningText";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
+import StatisticsSection from "@/components/StatisticsSection";
+import WaveDivider from "@/components/WaveDivider";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -39,122 +42,95 @@ export default async function Home() {
       <RunningText text={runningTextData?.text} />
 
       {/* Hero Section */}
-      <HeroSlider images={heroSliderData?.images} />
+      <div className="relative">
+        <HeroSlider images={heroSliderData?.images} />
+        {/* Wave Divider Logic: Usually overlap the slider bottom */}
+        <div className="absolute -bottom-1 left-0 w-full z-20">
+          <WaveDivider position="bottom" color="fill-slate-50" />
+        </div>
+      </div>
 
       {/* Portal Layout Section */}
-      <section className="py-12 md:py-16">
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <section className="py-12 md:py-20 bg-slate-50 relative">
+        <div className="container px-4 md:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
             {/* Main Content (Left Column) - 8 cols */}
-            <div className="lg:col-span-8 space-y-12">
+            <div className="lg:col-span-8 space-y-16">
 
-              {/* Features / Quick Access */}
+              {/* Features / Quick Access - UPGRADED */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Link href="#" className="group">
-                  <Card className="h-full border-l-4 border-l-primary transition-all hover:shadow-lg hover:-translate-y-1">
-                    <CardHeader className="pb-2">
-                      <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                        <BookOpen className="h-6 w-6" />
+                {[
+                  { label: "Layanan PTSP", desc: "Permohonan surat & legalisir", icon: BookOpen, color: "bg-green-500", href: "/ptsp", shadow: "shadow-green-200" },
+                  { label: "Rapor Digital", desc: "Hasil evaluasi siswa", icon: GraduationCap, color: "bg-yellow-500", href: "#", shadow: "shadow-yellow-200" },
+                  { label: "Galeri", desc: "Dokumentasi kegiatan", icon: ImageIcon, color: "bg-pink-500", href: "/galeri", shadow: "shadow-pink-200" }
+                ].map((item, idx) => (
+                  <Link href={item.href} key={idx} className="group relative">
+                    <div className={`h-full p-6 rounded-2xl bg-white border border-slate-100 shadow-xl ${item.shadow} transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl overflow-hidden`}>
+                      <div className={`absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity`}>
+                        <item.icon size={100} className={`text-${item.color.split('-')[1]}-500`} />
                       </div>
-                      <CardTitle className="text-lg">E-Learning</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">
-                        Akses materi pembelajaran digital dan tugas siswa.
-                      </p>
-                    </CardContent>
-                  </Card>
-                </Link>
-                <Link href="#" className="group">
-                  <Card className="h-full border-l-4 border-l-secondary transition-all hover:shadow-lg hover:-translate-y-1">
-                    <CardHeader className="pb-2">
-                      <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-secondary/10 text-secondary-foreground group-hover:bg-secondary group-hover:text-secondary-foreground transition-colors">
-                        <GraduationCap className="h-6 w-6" />
+                      <div className={`${item.color} w-14 h-14 rounded-xl flex items-center justify-center text-white mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                        <item.icon size={28} />
                       </div>
-                      <CardTitle className="text-lg">Rapor Digital</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">
-                        Lihat hasil belajar dan evaluasi akademik siswa.
-                      </p>
-                    </CardContent>
-                  </Card>
-                </Link>
-                <Link href="/galeri" className="group">
-                  <Card className="h-full border-l-4 border-l-primary transition-all hover:shadow-lg hover:-translate-y-1">
-                    <CardHeader className="pb-2">
-                      <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                        <ImageIcon className="h-6 w-6" />
-                      </div>
-                      <CardTitle className="text-lg">Galeri</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">
-                        Dokumentasi kegiatan dan prestasi madrasah.
-                      </p>
-                    </CardContent>
-                  </Card>
-                </Link>
+                      <h3 className="text-xl font-bold text-slate-800 mb-1 group-hover:text-primary transition-colors">{item.label}</h3>
+                      <p className="text-sm text-slate-500">{item.desc}</p>
+                    </div>
+                  </Link>
+                ))}
               </div>
 
-              {/* Latest News */}
+              {/* Latest News - UPGRADED */}
               <div>
-                <div className="mb-6 flex items-center justify-between border-b-2 border-primary/10 pb-2">
-                  <h2 className="text-2xl font-bold text-primary flex items-center gap-2">
-                    <span className="h-8 w-1 bg-primary rounded-full"></span>
+                <div className="mb-8 flex items-center justify-between">
+                  <h2 className="text-3xl font-extrabold text-slate-800 flex items-center gap-3">
+                    <span className="h-2 w-8 bg-primary rounded-full"></span>
                     Berita Terbaru
                   </h2>
-                  <Link href="/berita" className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
-                    Lihat Semua <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  <Button asChild variant="ghost" className="text-primary font-bold hover:bg-primary/10">
+                    <Link href="/berita" className="flex items-center gap-2">Lihat Semua <ArrowRight size={16} /></Link>
+                  </Button>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {latestPosts.length === 0 ? (
-                    <div className="col-span-full text-center py-12 text-muted-foreground bg-white rounded-lg border border-dashed">
-                      Belum ada berita terbaru.
+                    <div className="col-span-full flex flex-col items-center justify-center py-16 text-muted-foreground bg-white rounded-2xl border-2 border-dashed border-slate-200">
+                      <div className="bg-slate-100 p-4 rounded-full mb-4">
+                        <Bell className="h-8 w-8 text-slate-400" />
+                      </div>
+                      <p className="font-medium">Belum ada berita terbaru.</p>
                     </div>
                   ) : (
                     latestPosts.map((item: any) => (
-                      <Card key={item.id} className="overflow-hidden flex flex-col h-full hover:shadow-md transition-shadow group">
-                        <div className="relative h-48 w-full overflow-hidden">
+                      <Card key={item.id} className="group overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl h-full flex flex-col">
+                        <div className="relative h-56 w-full overflow-hidden">
                           <Image
                             src={item.image_url || "https://images.unsplash.com/photo-1503676260728-1c00da094a0b"}
                             alt={item.title}
                             fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            className="object-cover transition-transform duration-700 group-hover:scale-110"
                           />
-                          <div className="absolute top-2 right-2 bg-primary text-white text-xs px-2 py-1 rounded shadow-sm">
-                            Berita
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                          <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-xs font-bold px-3 py-1 rounded-full shadow-sm text-slate-800 flex items-center gap-1">
+                            <Calendar size={12} className="text-primary" />
+                            {new Date(item.created_at).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
                           </div>
                         </div>
-                        <CardContent className="flex-1 pt-4">
-                          <div className="mb-3 flex items-center gap-2 text-xs text-muted-foreground">
-                            <Calendar className="h-3 w-3 text-secondary" />
-                            <span>
-                              {new Date(item.created_at).toLocaleDateString("id-ID", {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric",
-                              })}
-                            </span>
-                          </div>
-                          <h3 className="mb-2 text-lg font-bold leading-tight text-slate-800 group-hover:text-primary transition-colors">
-                            <Link href={`/berita/${item.id}`} className="line-clamp-2">
+                        <CardContent className="flex-1 p-6 relative bg-white">
+                          <h3 className="mb-3 text-xl font-bold leading-snug text-slate-800 group-hover:text-primary transition-colors line-clamp-2">
+                            <Link href={`/berita/${item.id}`}>
                               {item.title}
                             </Link>
                           </h3>
-                          <p className="line-clamp-3 text-sm text-muted-foreground">
+                          <p className="text-slate-500 text-sm line-clamp-3 mb-4 leading-relaxed">
                             {item.excerpt}
                           </p>
-                        </CardContent>
-                        <CardFooter className="pt-0">
-                          <Button asChild variant="link" className="px-0 text-primary p-0 h-auto font-semibold">
-                            <Link href={`/berita/${item.id}`} className="flex items-center gap-1">
-                              Baca Selengkapnya <ChevronRight className="h-3 w-3" />
+                          <div className="pt-4 border-t w-full mt-auto">
+                            <Link href={`/berita/${item.id}`} className="inline-flex items-center text-sm font-bold text-primary hover:underline">
+                              Baca Selengkapnya <ChevronRight size={16} className="ml-1" />
                             </Link>
-                          </Button>
-                        </CardFooter>
+                          </div>
+                        </CardContent>
                       </Card>
                     ))
                   )}
@@ -164,69 +140,66 @@ export default async function Home() {
             </div>
 
             {/* Sidebar (Right Column) - 4 cols */}
-            <div className="lg:col-span-4 space-y-8">
+            <div className="lg:col-span-4 space-y-10">
 
-              {/* Headmaster Welcome Widget */}
-              <Card className="overflow-hidden border-t-4 border-t-secondary shadow-md">
-                <div className="bg-slate-50 p-4 border-b">
-                  <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2">
-                    <Star className="h-5 w-5 text-secondary fill-secondary" />
-                    Sambutan Kepala Madrasah
-                  </h3>
-                </div>
-                <CardContent className="p-0">
-                  <div className="relative h-48 w-full">
+              {/* Headmaster Welcome Widget - UPGRADED */}
+              <div className="relative pt-12">
+                <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-br from-primary to-green-800 rounded-t-2xl -z-10 mx-4 translate-y-4 opacity-80"></div>
+                <Card className="overflow-hidden shadow-xl border-none rounded-2xl relative bg-white">
+                  <div className="relative h-64 w-full group">
                     <Image
                       src={headmaster.image}
                       alt={headmaster.name}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 p-6 text-white w-full">
+                      <h4 className="font-bold text-xl mb-0.5 shadow-black drop-shadow-md">{headmaster.name}</h4>
+                      <p className="text-xs font-medium bg-secondary text-secondary-foreground px-2 py-0.5 rounded inline-block">Kepala Madrasah</p>
+                    </div>
                   </div>
-                  <div className="p-5">
-                    <h4 className="font-bold text-primary text-lg mb-1">{headmaster.name}</h4>
-                    <p className="text-xs text-muted-foreground mb-4 uppercase tracking-wider">Kepala Madrasah</p>
-                    <p className="text-sm text-slate-600 line-clamp-4 italic mb-4">
-                      "{headmaster.message}"
-                    </p>
-                    <Button asChild size="sm" variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-white">
-                      <Link href="/profil">Baca Selengkapnya</Link>
+                  <CardContent className="p-6">
+                    <div className="relative">
+                      <span className="absolute -top-4 -left-2 text-6xl text-slate-200 font-serif leading-none">“</span>
+                      <p className="text-slate-600 italic leading-relaxed relative z-10 pl-6 border-l-2 border-primary/30">
+                        {headmaster.message}
+                      </p>
+                    </div>
+                    <Button asChild className="w-full mt-6 bg-slate-900 hover:bg-primary transition-colors">
+                      <Link href="/profil">Baca Profil Lengkap <ArrowRight size={14} className="ml-2" /></Link>
                     </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </div>
 
-              {/* Announcements Widget */}
-              <Card className="shadow-md">
-                <div className="bg-primary p-4 text-white rounded-t-lg">
-                  <h3 className="font-bold text-lg flex items-center gap-2">
+              {/* Announcements Widget - UPGRADED */}
+              <Card className="shadow-lg border-t-8 border-t-yellow-500 rounded-xl overflow-hidden">
+                <div className="bg-yellow-50 p-5 border-b border-yellow-100 flex items-center gap-3">
+                  <div className="bg-yellow-500 p-2 rounded-lg text-white shadow-sm rotate-3">
                     <Bell className="h-5 w-5" />
-                    Pengumuman
-                  </h3>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg text-slate-800">Papan Pengumuman</h3>
+                    <p className="text-xs text-slate-500">Update informasi akademik terbaru</p>
+                  </div>
                 </div>
                 <CardContent className="p-0">
-                  <ul className="divide-y">
+                  <ul className="divide-y divide-yellow-100/50">
                     {announcements.length === 0 ? (
-                      <li className="p-4 text-center text-sm text-muted-foreground">
-                        Belum ada pengumuman.
+                      <li className="p-8 text-center text-sm text-slate-400 bg-slate-50">
+                        Belum ada aktivitas baru.
                       </li>
                     ) : (
                       announcements.slice(0, 5).map((item: any) => (
-                        <li key={item.id} className="p-4 hover:bg-slate-50 transition-colors">
-                          <Link href="#" className="block group">
-                            <span className="text-xs font-semibold text-secondary-foreground bg-secondary/20 px-2 py-0.5 rounded mb-2 inline-block">
-                              Pengumuman
-                            </span>
-                            <h4 className="text-sm font-medium text-slate-700 group-hover:text-primary transition-colors mb-1">
+                        <li key={item.id} className="group hover:bg-yellow-50/30 transition-colors">
+                          <Link href="#" className="block p-4 pl-5 border-l-4 border-transparent hover:border-yellow-400 transition-all">
+                            <h4 className="text-sm font-bold text-slate-700 group-hover:text-yellow-700 transition-colors line-clamp-1 mb-1">
                               {item.title}
                             </h4>
-                            <span className="text-xs text-muted-foreground flex items-center gap-1">
+                            <span className="text-xs text-slate-400 flex items-center gap-1.5">
                               <Calendar className="h-3 w-3" />
-                              {new Date(item.date).toLocaleDateString("id-ID", {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric",
-                              })}
+                              {new Date(item.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}
                             </span>
                           </Link>
                         </li>
@@ -234,61 +207,28 @@ export default async function Home() {
                     )}
                   </ul>
                 </CardContent>
-                <CardFooter className="p-3 bg-slate-50 border-t">
-                  <Link href="#" className="text-xs font-medium text-center w-full text-primary hover:underline">
-                    Lihat Semua Pengumuman
+                <CardFooter className="p-0">
+                  <Link href="#" className="block w-full py-3 text-center text-sm font-bold text-yellow-700 bg-yellow-50 hover:bg-yellow-100 transition-colors">
+                    Lihat Arsip Pengumuman
                   </Link>
                 </CardFooter>
               </Card>
 
-              {/* Important Links Widget */}
-              <Card className="shadow-md">
-                <div className="p-4 border-b">
-                  <h3 className="font-bold text-lg text-slate-800">Tautan Penting</h3>
+              {/* Quotes Widget - UPGRADED */}
+              <Card className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-xl border-none rounded-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-8 opacity-10">
+                  <BookOpen size={120} />
                 </div>
-                <CardContent className="p-0">
-                  <ul className="divide-y">
-                    <li>
-                      <Link href="#" className="flex items-center justify-between p-4 hover:bg-slate-50 transition-colors text-sm font-medium text-slate-700">
-                        <span>Jadwal Pelajaran</span>
-                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="#" className="flex items-center justify-between p-4 hover:bg-slate-50 transition-colors text-sm font-medium text-slate-700">
-                        <span>Kalender Akademik</span>
-                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="#" className="flex items-center justify-between p-4 hover:bg-slate-50 transition-colors text-sm font-medium text-slate-700">
-                        <span>Data Guru & Staf</span>
-                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="#" className="flex items-center justify-between p-4 hover:bg-slate-50 transition-colors text-sm font-medium text-slate-700">
-                        <span>Prestasi Siswa</span>
-                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                      </Link>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              {/* Quotes Widget */}
-              <Card className="shadow-md bg-secondary/10 border-secondary/20">
-                <div className="p-4 border-b border-secondary/20">
-                  <h3 className="font-bold text-lg text-primary flex items-center gap-2">
-                    <BookOpen className="h-5 w-5" />
-                    Kata Mutiara
+                <CardContent className="p-8 relative z-10 text-center">
+                  <h3 className="font-bold text-lg mb-4 flex items-center justify-center gap-2 opacity-90">
+                    <Star size={18} className="text-yellow-300" /> Kata Mutiara
                   </h3>
-                </div>
-                <CardContent className="p-4">
-                  <blockquote className="italic text-slate-700 text-sm border-l-4 border-secondary pl-4 py-2">
+                  <blockquote className="text-lg font-serif italic mb-6 leading-relaxed opacity-95">
                     "Pendidikan adalah senjata paling ampuh yang bisa digunakan untuk mengubah dunia."
                   </blockquote>
-                  <p className="text-right text-xs font-bold text-primary mt-2">- Nelson Mandela</p>
+                  <div className="inline-block bg-white/20 backdrop-blur-md px-4 py-1 rounded-full text-sm font-bold">
+                    - Nelson Mandela
+                  </div>
                 </CardContent>
               </Card>
 
@@ -296,6 +236,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* STATISTICS SECTION (New) */}
+      <StatisticsSection />
     </div>
   );
 }
