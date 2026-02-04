@@ -1,7 +1,8 @@
+import Link from "next/link";
 import { getRegistrants, updateStatus } from "@/app/actions/ppdb";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, X, FileText } from "lucide-react";
+import { Check, X, FileText, ArrowLeft } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,13 @@ export default async function AdminPPDBPage() {
 
     return (
         <div className="space-y-6">
+            <Button variant="ghost" asChild className="pl-0 hover:bg-transparent hover:text-primary">
+                <Link href="/admin/dashboard">
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Kembali ke Dashboard
+                </Link>
+            </Button>
+
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold text-slate-800">Data PPDB</h1>
                 <Button variant="outline">Export Excel</Button>
@@ -53,8 +61,8 @@ export default async function AdminPPDBPage() {
                                             <td className="p-4 align-middle capitalize">{reg.registration_path}</td>
                                             <td className="p-4 align-middle">
                                                 <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize ${reg.status === "verified" ? "bg-green-100 text-green-800" :
-                                                        reg.status === "rejected" ? "bg-red-100 text-red-800" :
-                                                            "bg-yellow-100 text-yellow-800"
+                                                    reg.status === "rejected" ? "bg-red-100 text-red-800" :
+                                                        "bg-yellow-100 text-yellow-800"
                                                     }`}>
                                                     {reg.status}
                                                 </span>

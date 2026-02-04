@@ -1,5 +1,8 @@
 import { getSettings } from "@/app/actions/settings";
 import SettingsForm from "./settings-form";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +21,13 @@ export default async function AdminSettingsPage() {
 
     return (
         <div className="space-y-6">
+            <Button variant="ghost" asChild className="pl-0 hover:bg-transparent hover:text-primary">
+                <Link href="/admin/dashboard">
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Kembali ke Dashboard
+                </Link>
+            </Button>
+
             <h1 className="text-3xl font-bold text-slate-800">Pengaturan Website</h1>
             <SettingsForm
                 runningTextData={runningTextData}

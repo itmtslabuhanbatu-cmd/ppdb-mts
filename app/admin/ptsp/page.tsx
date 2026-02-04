@@ -1,8 +1,10 @@
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { getAllRequests } from "@/app/actions/ptsp";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CheckCircle, Clock, XCircle, AlertCircle, Phone, User } from "lucide-react";
+import { CheckCircle, Clock, XCircle, AlertCircle, Phone, User, ArrowLeft } from "lucide-react";
 import AdminPtspCard from "./card"; // We will create this client component
 
 export const dynamic = "force-dynamic";
@@ -16,6 +18,13 @@ export default async function AdminPtspPage() {
 
     return (
         <div className="space-y-6">
+            <Button variant="ghost" asChild className="pl-0 hover:bg-transparent hover:text-primary">
+                <Link href="/admin/dashboard">
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Kembali ke Dashboard
+                </Link>
+            </Button>
+
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight text-slate-900">Dashboard PTSP</h1>

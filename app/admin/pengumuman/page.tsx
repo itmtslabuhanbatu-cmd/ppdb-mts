@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, Pencil, Trash2, Calendar } from "lucide-react";
+import { Plus, Pencil, Trash2, Calendar, ArrowLeft } from "lucide-react";
 import { getAllAnnouncements, deleteAnnouncement } from "@/app/actions/announcements";
 
 export const dynamic = "force-dynamic";
@@ -11,6 +11,13 @@ export default async function AdminAnnouncementsPage() {
 
     return (
         <div className="space-y-6">
+            <Button variant="ghost" asChild className="pl-0 hover:bg-transparent hover:text-primary">
+                <Link href="/admin/dashboard">
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Kembali ke Dashboard
+                </Link>
+            </Button>
+
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold text-slate-800">Manajemen Pengumuman</h1>
                 <Button asChild className="bg-primary hover:bg-primary/90">

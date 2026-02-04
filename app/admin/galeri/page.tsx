@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getGallery, deleteImage } from "@/app/actions/gallery";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 
 export const dynamic = "force-dynamic";
@@ -17,6 +17,13 @@ export default async function AdminGaleriPage() {
 
     return (
         <div className="space-y-6">
+            <Button variant="ghost" asChild className="pl-0 hover:bg-transparent hover:text-primary">
+                <Link href="/admin/dashboard">
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Kembali ke Dashboard
+                </Link>
+            </Button>
+
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold text-slate-800">Manajemen Galeri</h1>
                 <Button asChild className="bg-primary hover:bg-primary/90">

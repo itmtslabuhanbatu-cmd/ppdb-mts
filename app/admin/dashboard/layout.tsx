@@ -3,7 +3,7 @@
 import { SessionProvider } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, Image as ImageIcon, Settings, Users, LogOut, GraduationCap, Bell } from "lucide-react";
+import { LayoutDashboard, FileText, Image as ImageIcon, Settings, Users, LogOut, GraduationCap, Bell, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signOut } from "next-auth/react";
 
@@ -23,6 +23,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         { name: "Berita & Artikel", href: "/admin/berita", icon: FileText },
         { name: "Pengumuman", href: "/admin/pengumuman", icon: Bell },
         { name: "Galeri Foto", href: "/admin/galeri", icon: ImageIcon },
+        { name: "Layanan PTSP", href: "/admin/ptsp", icon: ClipboardList },
         { name: "Data PPDB", href: "/admin/ppdb", icon: Users },
         { name: "Pengaturan", href: "/admin/settings", icon: Settings },
     ];
