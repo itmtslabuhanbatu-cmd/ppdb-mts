@@ -34,20 +34,43 @@ export async function createPtspRequest(prevState: any, formData: FormData) {
     }
 
     const serviceId = formData.get("serviceId") as string;
-    const fullName = formData.get("fullName") as string;
-    const details = formData.get("details") as string;
     const serviceName = formData.get("serviceName") as string;
 
-    if (!serviceId || !fullName) {
-        return { error: "Mohon lengkapi formulir." };
+    // New Fields
+    const fullName = formData.get("fullName") as string;
+    const nisn = formData.get("nisn") as string;
+    const kelas = formData.get("kelas") as string;
+    const ttl = formData.get("ttl") as string;
+    const parentsName = formData.get("parentsName") as string;
+    const address = formData.get("address") as string;
+    const whatsapp = formData.get("whatsapp") as string;
+    const attachmentUrl = formData.get("attachmentUrl") as string;
+
+    if (!serviceId || !fullName || !kelas || !whatsapp) {
+        return { error: "Mohon lengkapi formulir (Nama, Kelas, No WA wajib diisi)." };
     }
+
+    // Format details into a structured string
+    const details = `
+[DATA SISWA]
+Nama: ${fullName}
+NISN: ${nisn || "-"}
+Kelas: ${kelas}
+TTL: ${ttl || "-"}
+Nama Ortu: ${parentsName || "-"}
+Alamat: ${address || "-"}
+No WA: ${whatsapp}
+
+[LAMPIRAN]
+${attachmentUrl ? attachmentUrl : "Tidak ada lampiran"}
+    `.trim();
 
     try {
         const { error } = await supabase.from("ptsp_requests").insert({
             user_id: user.id,
             service_id: serviceId,
             full_name: fullName,
-            details: details,
+            details: details, // Storing formatted details here
             status: "PENDING"
         });
 
@@ -57,9 +80,20 @@ export async function createPtspRequest(prevState: any, formData: FormData) {
         const message = `
 🔔 <b>Request PTSP Baru!</b>
 
-👤 <b>Nama:</b> ${fullName}
-Pg <b>Layanan:</b> ${serviceName}
-📝 <b>Detail:</b> ${details || "-"}
+LAYANAN: <b>${serviceName}</b>
+
+👤 <b>DATA SISWA</b>
+Nama: ${fullName}
+Kelas: ${kelas}
+NISN: ${nisn || "-"}
+Ortu: ${parentsName || "-"}
+WA: ${whatsapp}
+
+📝 <b>DETAIL / ALAMAT</b>
+${address || "-"}
+
+📎 <b>LAMPIRAN</b>
+${attachmentUrl ? `<a href="${attachmentUrl}">Lihat Dokumen</a>` : "Tidak ada"}
 
 <i>Segera cek dashboard admin!</i>
     `.trim();

@@ -60,8 +60,8 @@ export default function AdminPtspCard({ request }: { request: any }) {
                         <p className="font-medium text-sm text-slate-900">{request.ptsp_services?.name}</p>
                     </div>
                     {request.details && (
-                        <div className="text-sm text-slate-600 italic">
-                            "{request.details}"
+                        <div className="text-sm text-slate-600 italic whitespace-pre-wrap bg-slate-50 p-2 rounded border border-slate-100 mt-2">
+                            {request.details}
                         </div>
                     )}
                     {request.admin_notes && (

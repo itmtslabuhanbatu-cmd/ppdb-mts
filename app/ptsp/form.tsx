@@ -11,29 +11,38 @@ import { createPtspRequest } from "@/app/actions/ptsp";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
+import FileUpload from "@/components/FileUpload";
+
 export default function PtspRequestForm({ service, user }: { service: any, user: any }) {
     const [open, setOpen] = useState(false);
+    const [attachmentUrl, setAttachmentUrl] = useState("");
 
     async function onSubmit(formData: FormData) {
+        // Append manual file url if needed or just let the action handle logic? 
+        // The file upload component handles the upload and gives us a URL.
+        // We need to pass this URL to the action.
+        formData.append("attachmentUrl", attachmentUrl);
+
         const res = await createPtspRequest(null, formData);
         if (res?.error) {
             toast.error(res.error);
         } else {
             toast.success(res?.message || "Permohonan berhasil!");
             setOpen(false);
+            setAttachmentUrl(""); // Reset
         }
     }
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="w-full bg-green-600 hover:bg-green-700">Ajukan Permohonan</Button>
+                <Button className="w-full bg-blue-600 hover:bg-blue-700">Ajukan Permohonan</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Ajukan {service.name}</DialogTitle>
                     <DialogDescription>
-                        Pastikan data yang anda masukkan benar.
+                        Isi form berikut dengan data siswa yang valid.
                     </DialogDescription>
                 </DialogHeader>
                 <form action={onSubmit} className="space-y-4">
@@ -41,21 +50,49 @@ export default function PtspRequestForm({ service, user }: { service: any, user:
                     <input type="hidden" name="serviceName" value={service.name} />
 
                     <div className="space-y-2">
-                        <Label htmlFor="fullName">Nama Lengkap (Sesuai Ijazah/Dokumen)</Label>
-                        <Input id="fullName" name="fullName" defaultValue={user.user_metadata?.full_name || user.email} required />
+                        <Label htmlFor="fullName">Nama Siswa</Label>
+                        <Input id="fullName" name="fullName" placeholder="Nama Lengkap Siswa" required />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="nisn">NISN</Label>
+                            <Input id="nisn" name="nisn" placeholder="Nomor NISN" />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="kelas">Kelas</Label>
+                            <Input id="kelas" name="kelas" placeholder="Contoh: IX-B" required />
+                        </div>
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="details">Keterangan Tambahan / Detail Kebutuhan</Label>
-                        <Textarea
-                            id="details"
-                            name="details"
-                            placeholder="Contoh: Untuk keperluan pendaftaran TNI, butuh legalisir 5 lembar."
-                            className="h-24"
-                        />
+                        <Label htmlFor="ttl">Tempat, Tanggal Lahir</Label>
+                        <Input id="ttl" name="ttl" placeholder="Contoh: Rantauprapat, 01 Januari 2010" />
                     </div>
 
-                    <DialogFooter>
+                    <div className="space-y-2">
+                        <Label htmlFor="parentsName">Nama Orang Tua</Label>
+                        <Input id="parentsName" name="parentsName" placeholder="Nama Ayah / Ibu" />
+                    </div>
+
+                    <div className="space-y-2">
+                        <Label htmlFor="address">Alamat</Label>
+                        <Textarea id="address" name="address" placeholder="Alamat lengkap siswa..." className="h-20" />
+                    </div>
+
+                    <div className="space-y-2">
+                        <Label htmlFor="whatsapp">Nomor WhatsApp (Aktif)</Label>
+                        <Input id="whatsapp" name="whatsapp" type="tel" placeholder="08..." required />
+                        <p className="text-[10px] text-muted-foreground">Notifikasi status akan diperbarui via web, pastikan nomor aktif untuk konfirmasi jika perlu.</p>
+                    </div>
+
+                    <div className="space-y-2">
+                        <Label>Lampiran Surat / Dokumen Pendukung</Label>
+                        <FileUpload onUpload={setAttachmentUrl} bucket="images" label="Upload File (Scan/Foto)" />
+                        <input type="hidden" name="hasAttachment" value={attachmentUrl ? "true" : "false"} />
+                    </div>
+
+                    <DialogFooter className="pt-4">
                         <SubmitButton />
                     </DialogFooter>
                 </form>

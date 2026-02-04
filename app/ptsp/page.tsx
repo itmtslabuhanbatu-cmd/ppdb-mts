@@ -22,20 +22,20 @@ export default async function PtspPage() {
     const myRequests = await getUserRequests();
 
     return (
-        <div className="min-h-screen bg-slate-50 py-12">
-            <div className="container px-4 md:px-8">
-
-                {/* Header */}
-                <div className="text-center mb-12">
-                    <h1 className="text-4xl font-extrabold text-slate-800 mb-4">Layanan Terpadu Satu Pintu (PTSP)</h1>
-                    <p className="text-slate-600 max-w-2xl mx-auto">
-                        Ajukan permohonan surat menyurat dan administrasi madrasah secara online.
-                        Hemat waktu, pantau status dari rumah.
-                    </p>
+        <div className="min-h-screen bg-white pb-12">
+            {/* Header / Banner area matching the image somewhat */}
+            <div className="bg-sky-50 pt-8 pb-8 px-4 text-center border-b border-sky-100 mb-8">
+                <div className="inline-block bg-blue-900 text-white px-8 py-2 rounded-full border-4 border-yellow-400 shadow-lg mb-4">
+                    <h1 className="text-xl md:text-2xl font-bold uppercase tracking-wider">Pengajuan Layanan</h1>
                 </div>
+                <p className="text-slate-600 max-w-xl mx-auto text-sm md:text-base">
+                    Untuk mengajukan layanan pada PTSP Online MTsN 1 Labuhanbatu, Silakan pilih terlebih dahulu daftar layanan yang tersedia di bawah ini:
+                </p>
+            </div>
 
+            <div className="container px-4 md:px-8 max-w-4xl mx-auto">
                 {!user ? (
-                    <Card className="max-w-md mx-auto text-center py-8">
+                    <Card className="max-w-md mx-auto text-center py-8 bg-slate-50 border-dashed">
                         <CardContent>
                             <FileText className="h-12 w-12 text-slate-400 mx-auto mb-4" />
                             <h3 className="text-xl font-bold mb-2">Login Diperlukan</h3>
@@ -55,35 +55,35 @@ export default async function PtspPage() {
                         </div>
 
                         <TabsContent value="services" className="animate-in fade-in slide-in-from-bottom-4">
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {services.length === 0 ? (
-                                    <div className="col-span-full text-center py-12 bg-white rounded-xl border border-dashed">
-                                        <p className="text-muted-foreground">Belum ada jenis layanan yang tersedia. Hubungi admin.</p>
-                                    </div>
-                                ) : (
-                                    services.map((service: any) => (
-                                        <Card key={service.id} className="flex flex-col h-full hover:shadow-lg transition-shadow border-t-4 border-t-green-500">
-                                            <CardHeader>
-                                                <CardTitle className="flex items-start justify-between gap-2">
-                                                    <span>{service.name}</span>
-                                                    <Badge variant="outline" className="shrink-0">{service.estimated_days} Hari</Badge>
-                                                </CardTitle>
-                                                <CardDescription>{service.description}</CardDescription>
-                                            </CardHeader>
-                                            <CardContent className="flex-1">
-                                                <h4 className="font-semibold text-sm mb-2 text-slate-700">Persyaratan:</h4>
-                                                <ul className="list-disc list-inside text-sm text-slate-500 space-y-1">
-                                                    {service.requirements?.map((req: string, i: number) => (
-                                                        <li key={i}>{req}</li>
-                                                    ))}
-                                                </ul>
-                                            </CardContent>
-                                            <CardFooter className="pt-4 border-t bg-slate-50/50">
-                                                <PtspRequestForm service={service} user={user} />
-                                            </CardFooter>
-                                        </Card>
-                                    ))
-                                )}
+                            <div className="bg-white rounded-xl shadow-sm border p-6 md:p-8">
+                                <ul className="space-y-4">
+                                    {SERVICES_LIST.map((itemName, index) => {
+                                        // Find matching service from DB
+                                        const service = services.find((s: any) => s.name?.toLowerCase().trim() === itemName.toLowerCase().trim());
+                                        const isAvailable = !!service;
+                                        const rowNumber = index + 1; // 1, 2, 3...
+
+                                        return (
+                                            <li key={index} className="flex items-start gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-0">
+                                                <span className="text-purple-700 font-bold text-lg min-w-[2rem] text-right">
+                                                    {rowNumber < 10 ? `0${rowNumber}` : rowNumber}.
+                                                </span>
+                                                <div className="flex-1">
+                                                    <div className="flex items-center justify-between flex-wrap gap-2">
+                                                        <span className="text-slate-700 font-medium text-lg">{itemName}</span>
+                                                        {isAvailable ? (
+                                                            <PtspRequestForm service={service} user={user} />
+                                                        ) : (
+                                                            <Badge variant="outline" className="text-slate-400 border-slate-200">
+                                                                Belum Tersedia
+                                                            </Badge>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
                             </div>
                         </TabsContent>
 
@@ -110,18 +110,15 @@ export default async function PtspPage() {
                                                             <p className="text-sm text-slate-500">
                                                                 Diajukan: {new Date(req.created_at).toLocaleDateString("id-ID", { day: 'numeric', month: 'long', year: 'numeric' })}
                                                             </p>
-                                                            {req.details && (
-                                                                <p className="text-xs text-slate-400 mt-1 italic">"{req.details}"</p>
+                                                            {/* Details are now structured text, showing simple preview or hiding it is better */}
+                                                            {req.admin_notes && (
+                                                                <div className="text-sm text-blue-600 mt-2 bg-blue-50 p-2 rounded">
+                                                                    <span className="font-semibold">Catatan Admin:</span> {req.admin_notes}
+                                                                </div>
                                                             )}
                                                         </div>
                                                     </div>
-                                                    <div className="flex items-center gap-4">
-                                                        {req.admin_notes && (
-                                                            <div className="text-right text-sm">
-                                                                <span className="font-semibold text-slate-700 block">Catatan Admin:</span>
-                                                                <span className="text-slate-600">{req.admin_notes}</span>
-                                                            </div>
-                                                        )}
+                                                    <div>
                                                         <Badge className={`${getStatusColor(req.status)} px-3 py-1`}>
                                                             {getStatusLabel(req.status)}
                                                         </Badge>
@@ -139,6 +136,22 @@ export default async function PtspPage() {
         </div>
     );
 }
+
+// Hardcoded list from the image (excluding #1 which was "Pelayanan pengaduan masyarakat")
+const SERVICES_LIST = [
+    "Permohonan legalisasi ijazah",
+    "Pelayanan surat keterangan kehilangan ijazah",
+    "Pelayanan surat keterangan kerusakan ijazah",
+    "Pelayanan kesalahan penulisan ijazah",
+    "Pelayanan surat keterangan rekomendasi siswa",
+    "Pelayanan surat keterangan kelakuan baik siswa",
+    "Penerimaan mutasi siswa keluar",
+    "Pelayanan izin penelitian mahasiswa",
+    "Pelayanan orang tua/wali siswa",
+    "Pelayanan mahasiswa magang/PLP/PKL",
+    "Pelayanan informasi madrasah",
+    "Pelayanan surat keterangan keaktifan siswa"
+];
 
 function getStatusIcon(status: string) {
     switch (status) {
