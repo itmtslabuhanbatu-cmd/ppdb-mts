@@ -5,7 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CheckCircle, Clock, XCircle, AlertCircle, Phone, User, ArrowLeft } from "lucide-react";
-import AdminPtspCard from "./card"; // We will create this client component
+import AdminPtspCard from "./card";
+import SeedButton from "./seed-button";
 
 export const dynamic = "force-dynamic";
 
@@ -30,6 +31,7 @@ export default async function AdminPtspPage() {
                     <h1 className="text-3xl font-bold tracking-tight text-slate-900">Dashboard PTSP</h1>
                     <p className="text-slate-500">Kelola permohonan layanan surat & administrasi.</p>
                 </div>
+                <SeedButton />
             </div>
 
             <div className="grid gap-4 md:grid-cols-3">
