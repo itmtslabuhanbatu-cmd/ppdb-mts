@@ -58,6 +58,21 @@ export async function updateSettings(formData: FormData) {
         }
     }
 
+    const ppdbInfo = formData.get("ppdb_info") as string;
+    if (ppdbInfo) {
+        try {
+            const info = JSON.parse(ppdbInfo);
+            await supabase
+                .from("settings")
+                .upsert({
+                    key: "ppdb_info",
+                    value: info
+                });
+        } catch (e) {
+            console.error("Failed to parse ppdb info", e);
+        }
+    }
+
     revalidatePath("/");
     revalidatePath("/admin/settings");
 }

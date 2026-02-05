@@ -28,7 +28,15 @@ export default async function AdminSettingsPage() {
                 </Link>
             </Button>
 
-            <h1 className="text-3xl font-bold text-slate-800">Pengaturan Website</h1>
+            <div className="flex items-center justify-between">
+                <h1 className="text-3xl font-bold text-slate-800">Pengaturan Website</h1>
+                <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
+                    <Link href="/admin/settings/ppdb">
+                        Pengaturan Halaman PPDB
+                    </Link>
+                </Button>
+            </div>
+
             <SettingsForm
                 runningTextData={runningTextData}
                 headmasterData={headmasterData}

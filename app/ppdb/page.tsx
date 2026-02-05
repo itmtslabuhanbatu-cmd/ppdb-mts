@@ -1,15 +1,68 @@
+// PTSP & Telegram Integration Added
+import { getSettings } from "@/app/actions/settings";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Search, UserPlus, Calendar, FileText, CheckCircle, AlertCircle } from "lucide-react";
 import Link from "next/link";
-import { checkStatus } from "@/app/actions/ppdb-public";
+// import { checkStatus } from "@/app/actions/ppdb-public"; // Unused in this view
 import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
-export default function PPDBPage() {
+export default async function PPDBPage() {
+    let ppdbInfo: any = {};
+    try {
+        ppdbInfo = await getSettings("ppdb_info") || {};
+    } catch (e) {
+        console.error("Failed to fetch ppdb info", e);
+    }
+
+    // Defaults / Fallbacks
+    const academicYear = ppdbInfo.academic_year || "2025/2026";
+    const scheduleItems = ppdbInfo.schedule_items || [
+        { label: "Pendaftaran Online", value: "22 - 27 Mei 2025" },
+        { label: "Pengantaran Berkas", value: "22 - 28 Mei 2025" },
+        { label: "Simulasi Tes Potensi Akademik", value: "02 Juni 2025" },
+        { label: "Tes Potensi Akademik", value: "05 Juni 2025" },
+        { label: "Tes Praktek", value: "10 - 14 Juni 2025" },
+        { label: "Pengumuman Kelulusan", value: "19 Juni 2025" },
+        { label: "Daftar Ulang", value: "20 - 21 Juni 2025" }
+    ];
+    const scheduleNote = ppdbInfo.schedule_note || "Untuk informasi waktu simulasi tes potensi akademik, tes potensi akademik, dan tes praktek akan disampaikan dilaman: https://mtsnegeri1labuhanbatu.sch.id";
+
+    const requirements = ppdbInfo.requirements && ppdbInfo.requirements.length > 0 ? ppdbInfo.requirements : [
+        "Berusia maksimal 15 tahun pada tanggal 01 Juli 2025.",
+        "Memiliki Surat Keterangan Aktif Bersekolah duduk dikelas VI (Enam) di SD/MI pada saat mendaftar.",
+        "Memiliki Akta Kelahiran/Surat Keterangan Lahir yang dikeluarkan oleh pihak yang berwenang."
+    ];
+
+    const documents = ppdbInfo.documents && ppdbInfo.documents.length > 0 ? ppdbInfo.documents : [
+        "Surat Keterangan Aktif Sekolah dari SD/MI asal.",
+        "Pas Foto ukuran 3x4: 1 Lembar (Latar Belakang Merah) dan diupload pada saat pendaftaran.",
+        "Foto Copy Kartu Keluarga 1 Lembar.",
+        "Foto Copy Akta Kelahiran 1 Lembar.",
+        "Foto Copy Sertifikat Prestasi Akademik / Non Akademik Juara 1, 2 atau 3 Minimal Tingkat Kabupaten Jika Ada.",
+        "Foto Copy KIP/PKH/KKS/SKTM (Memiliki ID BDT) yang diterbitkan oleh Pemerintah Daerah Jika Ada (Jalur Afirmasi)."
+    ];
+
+    const procedures = ppdbInfo.procedures && ppdbInfo.procedures.length > 0 ? ppdbInfo.procedures : [
+        "Lengkapi berkas pendaftaran.",
+        "Kunjungi situs https://mtsnegeri1labuhanbatu.sch.id/ppdb untuk melakukan pendaftaran online.",
+        "Buat akun dan isi formulir isian yang ada sesuai data yang benar (Ingat User dan Password).",
+        "Cetak Kartu Tanda Pendaftaran dan Formulir yang sudah diisi lengkap dan benar.",
+        "Kartu Tanda Pendaftaran, Formulir dan Berkas Pendaftaran disampaikan ke Panitia PPDB MTsN 1 Labuhanbatu paling lama pada tanggal 28 Mei 2025 Pukul 12.00 WIB."
+    ];
+
+    const contact = ppdbInfo.contact || {
+        address: "Jl. Kampung Baru Gg. Tsanawiyah No. 150 Rantauprapat",
+        phone1: "0823 7027 2116",
+        phone2: "0851 2206 4243",
+        work_hours: "08.00 - 14.00 WIB"
+    };
+
+
     return (
         <div className="container py-12">
             <div className="mb-10 text-center">
@@ -17,7 +70,7 @@ export default function PPDBPage() {
                     Penerimaan Peserta Didik Baru (PPDBM)
                 </h1>
                 <p className="mt-4 text-lg text-muted-foreground">
-                    Tahun Pelajaran 2025/2026
+                    Tahun Pelajaran {academicYear}
                 </p>
             </div>
 
@@ -35,41 +88,21 @@ export default function PPDBPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="grid gap-4 sm:grid-cols-2">
-                                <div className="space-y-1">
-                                    <p className="text-sm font-medium text-muted-foreground">Pendaftaran Online</p>
-                                    <p className="font-semibold">22 - 27 Mei 2025</p>
-                                </div>
-                                <div className="space-y-1">
-                                    <p className="text-sm font-medium text-muted-foreground">Pengantaran Berkas</p>
-                                    <p className="font-semibold">22 - 28 Mei 2025</p>
-                                </div>
-                                <div className="space-y-1">
-                                    <p className="text-sm font-medium text-muted-foreground">Simulasi Tes Potensi Akademik</p>
-                                    <p className="font-semibold">02 Juni 2025</p>
-                                </div>
-                                <div className="space-y-1">
-                                    <p className="text-sm font-medium text-muted-foreground">Tes Potensi Akademik</p>
-                                    <p className="font-semibold">05 Juni 2025</p>
-                                </div>
-                                <div className="space-y-1">
-                                    <p className="text-sm font-medium text-muted-foreground">Tes Praktek</p>
-                                    <p className="font-semibold">10 - 14 Juni 2025</p>
-                                </div>
-                                <div className="space-y-1">
-                                    <p className="text-sm font-medium text-muted-foreground">Pengumuman Kelulusan</p>
-                                    <p className="font-semibold">19 Juni 2025</p>
-                                </div>
-                                <div className="space-y-1 sm:col-span-2">
-                                    <p className="text-sm font-medium text-muted-foreground">Daftar Ulang</p>
-                                    <p className="font-semibold">20 - 21 Juni 2025</p>
-                                </div>
+                                {scheduleItems.map((item: any, idx: number) => (
+                                    <div key={idx} className={`space-y-1 ${idx === scheduleItems.length - 1 && scheduleItems.length % 2 !== 0 ? "sm:col-span-2" : ""}`}>
+                                        <p className="text-sm font-medium text-muted-foreground">{item.label}</p>
+                                        <p className="font-semibold">{item.value}</p>
+                                    </div>
+                                ))}
                             </div>
-                            <div className="mt-4 rounded-md bg-yellow-50 p-3 text-sm text-yellow-800 border border-yellow-200">
-                                <p className="flex items-start gap-2">
-                                    <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
-                                    <span>Untuk informasi waktu simulasi tes potensi akademik, tes potensi akademik, dan tes praktek akan disampaikan dilaman: <span className="font-semibold">https://mtsnegeri1labuhanbatu.sch.id</span></span>
-                                </p>
-                            </div>
+                            {scheduleNote && (
+                                <div className="mt-4 rounded-md bg-yellow-50 p-3 text-sm text-yellow-800 border border-yellow-200">
+                                    <p className="flex items-start gap-2">
+                                        <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
+                                        <span>{scheduleNote}</span>
+                                    </p>
+                                </div>
+                            )}
                         </CardContent>
                     </Card>
 
@@ -84,9 +117,9 @@ export default function PPDBPage() {
                             </CardHeader>
                             <CardContent>
                                 <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700">
-                                    <li>Berusia maksimal 15 tahun pada tanggal 01 Juli 2025.</li>
-                                    <li>Memiliki Surat Keterangan Aktif Bersekolah duduk dikelas VI (Enam) di SD/MI pada saat mendaftar.</li>
-                                    <li>Memiliki Akta Kelahiran/Surat Keterangan Lahir yang dikeluarkan oleh pihak yang berwenang.</li>
+                                    {requirements.map((req: string, idx: number) => (
+                                        <li key={idx}>{req}</li>
+                                    ))}
                                 </ul>
                             </CardContent>
                         </Card>
@@ -100,12 +133,9 @@ export default function PPDBPage() {
                             </CardHeader>
                             <CardContent>
                                 <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700">
-                                    <li>Surat Keterangan Aktif Sekolah dari SD/MI asal.</li>
-                                    <li>Pas Foto ukuran 3x4: 1 Lembar (Latar Belakang Merah) dan diupload pada saat pendaftaran.</li>
-                                    <li>Foto Copy Kartu Keluarga 1 Lembar.</li>
-                                    <li>Foto Copy Akta Kelahiran 1 Lembar.</li>
-                                    <li>Foto Copy Sertifikat Prestasi Akademik / Non Akademik Juara 1, 2 atau 3 Minimal Tingkat Kabupaten Jika Ada.</li>
-                                    <li>Foto Copy KIP/PKH/KKS/SKTM (Memiliki ID BDT) yang diterbitkan oleh Pemerintah Daerah Jika Ada (Jalur Afirmasi).</li>
+                                    {documents.map((doc: string, idx: number) => (
+                                        <li key={idx}>{doc}</li>
+                                    ))}
                                 </ul>
                             </CardContent>
                         </Card>
@@ -118,11 +148,9 @@ export default function PPDBPage() {
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-700">
-                                <li>Lengkapi berkas pendaftaran.</li>
-                                <li>Kunjungi situs <span className="font-semibold text-primary">https://mtsnegeri1labuhanbatu.sch.id/ppdb</span> untuk melakukan pendaftaran online.</li>
-                                <li>Buat akun dan isi formulir isian yang ada sesuai data yang benar (Ingat User dan Password).</li>
-                                <li>Cetak Kartu Tanda Pendaftaran dan Formulir yang sudah diisi lengkap dan benar.</li>
-                                <li>Kartu Tanda Pendaftaran, Formulir dan Berkas Pendaftaran disampaikan ke Panitia PPDB MTsN 1 Labuhanbatu paling lama pada tanggal 28 Mei 2025 Pukul 12.00 WIB.</li>
+                                {procedures.map((proc: string, idx: number) => (
+                                    <li key={idx}>{proc}</li>
+                                ))}
                             </ol>
 
                             <div className="mt-6">
@@ -195,15 +223,15 @@ export default function PPDBPage() {
                         <CardContent className="space-y-4 text-sm">
                             <p>
                                 <strong>Alamat:</strong><br />
-                                Jl. Kampung Baru Gg. Tsanawiyah No. 150 Rantauprapat
+                                {contact.address}
                             </p>
                             <p>
                                 <strong>Kontak Panitia (WA):</strong><br />
-                                0823 7027 2116<br />
-                                0851 2206 4243
+                                {contact.phone1}<br />
+                                {contact.phone2}
                             </p>
                             <p className="text-xs opacity-80 mt-4">
-                                *Pelayanan informasi pada jam kerja (08.00 - 14.00 WIB)
+                                *Pelayanan informasi pada jam kerja ({contact.work_hours})
                             </p>
                         </CardContent>
                     </Card>
