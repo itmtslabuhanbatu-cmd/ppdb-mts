@@ -28,12 +28,49 @@ export default async function PtspPage() {
                 <div className="inline-block bg-blue-900 text-white px-8 py-2 rounded-full border-4 border-yellow-400 shadow-lg mb-4">
                     <h1 className="text-xl md:text-2xl font-bold uppercase tracking-wider">Pengajuan Layanan</h1>
                 </div>
-                <p className="text-slate-600 max-w-xl mx-auto text-sm md:text-base">
-                    Untuk mengajukan layanan pada PTSP Online MTsN 1 Labuhanbatu, Silakan pilih terlebih dahulu daftar layanan yang tersedia di bawah ini:
-                </p>
+
             </div>
 
-            <div className="container px-4 md:px-8 max-w-4xl mx-auto">
+            <div className="container px-4 md:px-8 max-w-4xl mx-auto space-y-8">
+                {/* Info Text Section */}
+                <div className="space-y-6 text-slate-700">
+                    <div className="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h2 className="text-xl font-bold text-sky-800 mb-2">Selamat Datang di PTSP Online</h2>
+                            <p className="leading-relaxed">
+                                Pelayanan merupakan salah satu yang wajib menjadi prioritas dalam sebuah lembaga pendidikan. Pelayanan juga dapat menjadi cermin kualitas dari sebuah kelembagaan. Dengan adanya inovasi dan kualitas pelayanan yang baik, maka kualitas kelembagaan tersebut juga menjadi semakin baik. Saat ini harapan dari masyarakat adalah kemudahan dalam mengakses layanan dari sebuah kelembagaan.
+                            </p>
+                        </div>
+                        <div className="bg-sky-50 p-6 rounded-xl border border-sky-100">
+                            <h2 className="text-xl font-bold text-sky-800 mb-2">Memberikan Kemudahan</h2>
+                            <p className="leading-relaxed">
+                                Dengan adanya Digitalisasi Layanan/ PTSP Online MTsN 1 Labuhanbatu ini, maka masyarakat/ pemohon layanan akan mendapatkan kemudahan karena bisa diakses darimana saja dan kapan saja.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-8">
+                        <div className="bg-emerald-50 p-6 rounded-xl border border-emerald-100">
+                            <h2 className="text-xl font-bold text-emerald-800 mb-2">Kepastian Layanan</h2>
+                            <p className="leading-relaxed">
+                                Dengan adanya Digitalisasi Layanan/ PTSP Online MTsN 1 Labuhanbatu ini, maka masyarakat/ pemohon layanan akan mendapatkan kepastian layanan karena progress bisa dipantau secara realtime.
+                            </p>
+                        </div>
+                        <div>
+                            <h2 className="text-xl font-bold text-blue-800 mb-2">Terintegrasi dan Transparan</h2>
+                            <p className="leading-relaxed">
+                                Semua layanan yang disediakan melalui PTSP Online MTsN 1 Labuhanbatu ini bersifat transparan dan kedepannya akan terintegrasi dengan sistem PTSP Kankemenag Kab/ Kota dan Kanwil Kemenag Provinsi.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="border-t border-slate-200 my-8"></div>
+
+                <p className="text-slate-600 text-center max-w-xl mx-auto text-sm md:text-base mb-8">
+                    Untuk mengajukan layanan pada PTSP Online MTsN 1 Labuhanbatu, Silakan pilih terlebih dahulu daftar layanan yang tersedia di bawah ini:
+                </p>
+
                 {!user ? (
                     <Card className="max-w-md mx-auto text-center py-8 bg-slate-50 border-dashed">
                         <CardContent>
