@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -34,18 +34,18 @@ export default function PtspRequestForm({ service, user }: { service: any, user:
     }
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
+        <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
                 <Button className="w-full bg-blue-600 hover:bg-blue-700">Ajukan Permohonan</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
-                <DialogHeader>
-                    <DialogTitle>Ajukan {service.name}</DialogTitle>
-                    <DialogDescription>
+            </SheetTrigger>
+            <SheetContent className="w-full sm:max-w-lg overflow-y-auto">
+                <SheetHeader>
+                    <SheetTitle>Ajukan {service.name}</SheetTitle>
+                    <SheetDescription>
                         Isi form berikut dengan data siswa yang valid.
-                    </DialogDescription>
-                </DialogHeader>
-                <form action={onSubmit} className="space-y-4">
+                    </SheetDescription>
+                </SheetHeader>
+                <form action={onSubmit} className="space-y-4 mt-6">
                     <input type="hidden" name="serviceId" value={service.id} />
                     <input type="hidden" name="serviceName" value={service.name} />
 
@@ -92,12 +92,12 @@ export default function PtspRequestForm({ service, user }: { service: any, user:
                         <input type="hidden" name="hasAttachment" value={attachmentUrl ? "true" : "false"} />
                     </div>
 
-                    <DialogFooter className="pt-4">
+                    <SheetFooter className="pt-4 pb-20 md:pb-0">
                         <SubmitButton />
-                    </DialogFooter>
+                    </SheetFooter>
                 </form>
-            </DialogContent>
-        </Dialog>
+            </SheetContent>
+        </Sheet>
     );
 }
 

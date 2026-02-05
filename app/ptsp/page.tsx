@@ -91,7 +91,7 @@ export default async function PtspPage() {
                             </TabsList>
                         </div>
 
-                        <TabsContent value="services" className="animate-in fade-in slide-in-from-bottom-4">
+                        <TabsContent value="services" className="animate-in fade-in slide-in-from-left-4">
                             <div className="bg-white rounded-xl shadow-sm border p-6 md:p-8">
                                 <ul className="space-y-4">
                                     {SERVICES_LIST.map((itemName, index) => {
@@ -124,7 +124,7 @@ export default async function PtspPage() {
                             </div>
                         </TabsContent>
 
-                        <TabsContent value="history" className="animate-in fade-in slide-in-from-bottom-4">
+                        <TabsContent value="history" className="animate-in fade-in slide-in-from-left-4">
                             <Card>
                                 <CardHeader>
                                     <CardTitle>Riwayat Permohonan Anda</CardTitle>
