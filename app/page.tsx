@@ -12,6 +12,7 @@ import Link from "next/link";
 import Image from "next/image";
 import StatisticsSection from "@/components/StatisticsSection";
 import WaveDivider from "@/components/WaveDivider";
+import AOSInit from "@/components/AOSInit";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -37,7 +38,8 @@ export default async function Home() {
   const headmaster = headmasterData || defaultHeadmaster;
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50">
+    <div className="flex flex-col min-h-screen bg-slate-50 overflow-x-hidden">
+      <AOSInit />
       {/* Running Text */}
       <RunningText text={runningTextData?.text} />
 
@@ -65,7 +67,7 @@ export default async function Home() {
                   { label: "Rapor Digital", desc: "Hasil evaluasi siswa", icon: GraduationCap, color: "bg-yellow-500", href: "#", shadow: "shadow-yellow-200" },
                   { label: "Galeri", desc: "Dokumentasi kegiatan", icon: ImageIcon, color: "bg-pink-500", href: "/galeri", shadow: "shadow-pink-200" }
                 ].map((item, idx) => (
-                  <Link href={item.href} key={idx} className="group relative">
+                  <Link href={item.href} key={idx} className="group relative" data-aos="fade-right" data-aos-delay={idx * 150}>
                     <div className={`h-full p-6 rounded-2xl bg-white border border-slate-100 shadow-xl ${item.shadow} transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl overflow-hidden`}>
                       <div className={`absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity`}>
                         <item.icon size={100} className={`text-${item.color.split('-')[1]}-500`} />
@@ -81,7 +83,7 @@ export default async function Home() {
               </div>
 
               {/* Latest News - UPGRADED */}
-              <div>
+              <div data-aos="fade-up">
                 <div className="mb-8 flex items-center justify-between">
                   <h2 className="text-3xl font-extrabold text-slate-800 flex items-center gap-3">
                     <span className="h-2 w-8 bg-primary rounded-full"></span>
@@ -101,8 +103,8 @@ export default async function Home() {
                       <p className="font-medium">Belum ada berita terbaru.</p>
                     </div>
                   ) : (
-                    latestPosts.map((item: any) => (
-                      <Card key={item.id} className="group overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl h-full flex flex-col">
+                    latestPosts.map((item: any, index: number) => (
+                      <Card key={item.id} className="group overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl h-full flex flex-col" data-aos="fade-up" data-aos-delay={index * 150}>
                         <div className="relative h-56 w-full overflow-hidden">
                           <Image
                             src={item.image_url || "https://images.unsplash.com/photo-1503676260728-1c00da094a0b"}
@@ -143,7 +145,7 @@ export default async function Home() {
             <div className="lg:col-span-4 space-y-10">
 
               {/* Headmaster Welcome Widget - UPGRADED */}
-              <div className="relative pt-12">
+              <div className="relative pt-12" data-aos="fade-left" data-aos-delay="200">
                 <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-br from-primary to-green-800 rounded-t-2xl -z-10 mx-4 translate-y-4 opacity-80"></div>
                 <Card className="overflow-hidden shadow-xl border-none rounded-2xl relative bg-white">
                   <div className="relative h-64 w-full group">
@@ -174,63 +176,67 @@ export default async function Home() {
               </div>
 
               {/* Announcements Widget - UPGRADED */}
-              <Card className="shadow-lg border-t-8 border-t-yellow-500 rounded-xl overflow-hidden">
-                <div className="bg-yellow-50 p-5 border-b border-yellow-100 flex items-center gap-3">
-                  <div className="bg-yellow-500 p-2 rounded-lg text-white shadow-sm rotate-3">
-                    <Bell className="h-5 w-5" />
+              <div data-aos="fade-left" data-aos-delay="400">
+                <Card className="shadow-lg border-t-8 border-t-yellow-500 rounded-xl overflow-hidden">
+                  <div className="bg-yellow-50 p-5 border-b border-yellow-100 flex items-center gap-3">
+                    <div className="bg-yellow-500 p-2 rounded-lg text-white shadow-sm rotate-3">
+                      <Bell className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg text-slate-800">Papan Pengumuman</h3>
+                      <p className="text-xs text-slate-500">Update informasi akademik terbaru</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-bold text-lg text-slate-800">Papan Pengumuman</h3>
-                    <p className="text-xs text-slate-500">Update informasi akademik terbaru</p>
-                  </div>
-                </div>
-                <CardContent className="p-0">
-                  <ul className="divide-y divide-yellow-100/50">
-                    {announcements.length === 0 ? (
-                      <li className="p-8 text-center text-sm text-slate-400 bg-slate-50">
-                        Belum ada aktivitas baru.
-                      </li>
-                    ) : (
-                      announcements.slice(0, 5).map((item: any) => (
-                        <li key={item.id} className="group hover:bg-yellow-50/30 transition-colors">
-                          <Link href="#" className="block p-4 pl-5 border-l-4 border-transparent hover:border-yellow-400 transition-all">
-                            <h4 className="text-sm font-bold text-slate-700 group-hover:text-yellow-700 transition-colors line-clamp-1 mb-1">
-                              {item.title}
-                            </h4>
-                            <span className="text-xs text-slate-400 flex items-center gap-1.5">
-                              <Calendar className="h-3 w-3" />
-                              {new Date(item.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}
-                            </span>
-                          </Link>
+                  <CardContent className="p-0">
+                    <ul className="divide-y divide-yellow-100/50">
+                      {announcements.length === 0 ? (
+                        <li className="p-8 text-center text-sm text-slate-400 bg-slate-50">
+                          Belum ada aktivitas baru.
                         </li>
-                      ))
-                    )}
-                  </ul>
-                </CardContent>
-                <CardFooter className="p-0">
-                  <Link href="#" className="block w-full py-3 text-center text-sm font-bold text-yellow-700 bg-yellow-50 hover:bg-yellow-100 transition-colors">
-                    Lihat Arsip Pengumuman
-                  </Link>
-                </CardFooter>
-              </Card>
+                      ) : (
+                        announcements.slice(0, 5).map((item: any) => (
+                          <li key={item.id} className="group hover:bg-yellow-50/30 transition-colors">
+                            <Link href="#" className="block p-4 pl-5 border-l-4 border-transparent hover:border-yellow-400 transition-all">
+                              <h4 className="text-sm font-bold text-slate-700 group-hover:text-yellow-700 transition-colors line-clamp-1 mb-1">
+                                {item.title}
+                              </h4>
+                              <span className="text-xs text-slate-400 flex items-center gap-1.5">
+                                <Calendar className="h-3 w-3" />
+                                {new Date(item.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}
+                              </span>
+                            </Link>
+                          </li>
+                        ))
+                      )}
+                    </ul>
+                  </CardContent>
+                  <CardFooter className="p-0">
+                    <Link href="#" className="block w-full py-3 text-center text-sm font-bold text-yellow-700 bg-yellow-50 hover:bg-yellow-100 transition-colors">
+                      Lihat Arsip Pengumuman
+                    </Link>
+                  </CardFooter>
+                </Card>
+              </div>
 
               {/* Quotes Widget - UPGRADED */}
-              <Card className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-xl border-none rounded-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-8 opacity-10">
-                  <BookOpen size={120} />
-                </div>
-                <CardContent className="p-8 relative z-10 text-center">
-                  <h3 className="font-bold text-lg mb-4 flex items-center justify-center gap-2 opacity-90">
-                    <Star size={18} className="text-yellow-300" /> Kata Mutiara
-                  </h3>
-                  <blockquote className="text-lg font-serif italic mb-6 leading-relaxed opacity-95">
-                    "Pendidikan adalah senjata paling ampuh yang bisa digunakan untuk mengubah dunia."
-                  </blockquote>
-                  <div className="inline-block bg-white/20 backdrop-blur-md px-4 py-1 rounded-full text-sm font-bold">
-                    - Nelson Mandela
+              <div data-aos="fade-left" data-aos-delay="600">
+                <Card className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-xl border-none rounded-2xl relative overflow-hidden">
+                  <div className="absolute top-0 right-0 p-8 opacity-10">
+                    <BookOpen size={120} />
                   </div>
-                </CardContent>
-              </Card>
+                  <CardContent className="p-8 relative z-10 text-center">
+                    <h3 className="font-bold text-lg mb-4 flex items-center justify-center gap-2 opacity-90">
+                      <Star size={18} className="text-yellow-300" /> Kata Mutiara
+                    </h3>
+                    <blockquote className="text-lg font-serif italic mb-6 leading-relaxed opacity-95">
+                      "Pendidikan adalah senjata paling ampuh yang bisa digunakan untuk mengubah dunia."
+                    </blockquote>
+                    <div className="inline-block bg-white/20 backdrop-blur-md px-4 py-1 rounded-full text-sm font-bold">
+                      - Nelson Mandela
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
 
             </div>
           </div>
