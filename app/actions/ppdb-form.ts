@@ -34,7 +34,7 @@ export async function saveRegistrationData(prevState: any, formData: FormData) {
         user_id: userId,
         // Data Pribadi
         full_name: full_name,
-        nisn: nisn,
+        ...(nisn ? { nisn } : {}), // Only update NISN if provided
         nik: nik,
         kk: get("kk"),
         gender: gender,

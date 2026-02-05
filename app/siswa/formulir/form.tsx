@@ -78,6 +78,7 @@ export default function PPDBForm({ initialData, userId }: { initialData: any, us
                 {/* Hidden Fields */}
                 <input type="hidden" name="user_id" value={userId} />
                 <input type="hidden" name="photo_url" value={photoUrl} />
+                <input type="hidden" name="nisn" value={val("nisn")} />
 
                 {/* --- DATA PRIBADI --- */}
                 <div className={activeTab === "pribadi" ? "block space-y-4" : "hidden"}>
