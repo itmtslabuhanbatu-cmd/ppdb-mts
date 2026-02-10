@@ -67,8 +67,14 @@ ${attachmentUrl ? attachmentUrl : "Tidak ada lampiran"}
     `.trim();
 
     try {
+        // Handle "admin-id" which is not a valid UUID (hardcoded in NextAuth)
+        let userIdToSave: string | undefined = user?.id;
+        if (userIdToSave === "admin-id") {
+            userIdToSave = undefined;
+        }
+
         const { error } = await supabase.from("ptsp_requests").insert({
-            user_id: user?.id || null, // Allow null for guests
+            user_id: userIdToSave || undefined, // undefined maps to NULL in Supabase JS
             service_id: serviceId,
             full_name: fullName,
             details: details, // Storing formatted details here
