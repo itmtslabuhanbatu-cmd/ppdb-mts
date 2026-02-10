@@ -29,7 +29,7 @@ export default function RegisterPage() {
         <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8">
             <Card className="w-full max-w-md shadow-lg">
                 <CardHeader className="text-center">
-                    <CardTitle className="text-2xl font-bold text-green-700">Buat Akun PPDB</CardTitle>
+                    <CardTitle className="text-2xl font-bold text-green-700">Buat Akun PMBM</CardTitle>
                     <CardDescription>
                         MTsN 1 Labuhanbatu
                     </CardDescription>

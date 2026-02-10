@@ -29,7 +29,7 @@ export default function SuccessPage({ searchParams }: { searchParams: { nisn: st
                             Cetak Bukti Pendaftaran
                         </Button>
                         <Button asChild className="w-full bg-primary hover:bg-primary/90">
-                            <Link href="/ppdb">Kembali ke Halaman PPDB</Link>
+                            <Link href="/ppdb">Kembali ke Halaman PMBM</Link>
                         </Button>
                     </div>
                 </CardContent>

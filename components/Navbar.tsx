@@ -69,7 +69,7 @@ export default function Navbar() {
                             </Link>
                         ))}
                         <Button asChild className="bg-primary hover:bg-primary/90 text-white shadow-md">
-                            <Link href="/ppdb">PPDB Online</Link>
+                            <Link href="/ppdb">PMBM Online</Link>
                         </Button>
                     </nav>
 
@@ -105,7 +105,7 @@ export default function Navbar() {
                                         </Link>
                                     ))}
                                     <Button asChild className="w-full bg-primary hover:bg-primary/90 mt-4">
-                                        <Link href="/ppdb">PPDB Online</Link>
+                                        <Link href="/ppdb">PMBM Online</Link>
                                     </Button>
 
                                     <div className="mt-8 pt-8 border-t">

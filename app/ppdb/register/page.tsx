@@ -24,7 +24,7 @@ export default function RegisterPPDBPage() {
             <Button asChild variant="ghost" className="mb-6 pl-0 hover:bg-transparent hover:text-primary">
                 <Link href="/ppdb">
                     <ArrowLeft className="mr-2 h-4 w-4" />
-                    Kembali ke Info PPDB
+                    Kembali ke Info PMBM
                 </Link>
             </Button>
 

@@ -37,13 +37,14 @@ export default function HeroSlider({ images }: { images?: string[] }) {
 
             <div className="absolute inset-0 z-20 container flex h-full flex-col items-center justify-center text-center text-white pointer-events-none">
                 <div className="pointer-events-auto">
-                    <div className="mb-6 inline-flex items-center rounded-full border border-secondary/50 bg-secondary/10 px-3 py-1 text-sm text-secondary backdrop-blur-sm animate-fade-in-down">
-                        <span className="flex h-2 w-2 rounded-full bg-secondary mr-2 animate-pulse"></span>
-                        Penerimaan Peserta Didik Baru (PPDB) Telah Dibuka
+                    <div className="mb-4 animate-fade-in-down">
+                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-white drop-shadow-lg leading-tight">
+                            Penerimaan Murid Baru Madrasah (PMBM) Telah Dibuka
+                        </h1>
                     </div>
-                    <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-7xl max-w-4xl drop-shadow-lg animate-fade-in-up">
+                    <h2 className="mb-6 text-xl sm:text-2xl md:text-3xl font-bold max-w-4xl drop-shadow-md text-slate-100 animate-fade-in-up">
                         Unggul dalam <span className="text-secondary">Prestasi</span>, <span className="text-secondary">Terampil</span>, <span className="text-secondary">Ber-Akhlak</span> & Berwawasan Lingkungan
-                    </h1>
+                    </h2>
                     <p className="mb-8 max-w-2xl text-lg text-slate-200 drop-shadow-md animate-fade-in-up delay-100">
                         MTsN 1 Labuhanbatu berkomitmen mencetak kader bangsa yang unggul dalam IMTAQ dan IPTEK.
                     </p>

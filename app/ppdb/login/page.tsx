@@ -58,7 +58,7 @@ function LoginForm() {
     return (
         <Card className="w-full max-w-md shadow-lg">
             <CardHeader className="text-center">
-                <CardTitle className="text-2xl font-bold text-green-700">Login PPDB</CardTitle>
+                <CardTitle className="text-2xl font-bold text-green-700">Login PMBM</CardTitle>
                 <CardDescription>
                     Masuk untuk melanjutkan pendaftaran
                 </CardDescription>

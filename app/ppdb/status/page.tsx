@@ -73,7 +73,7 @@ export default async function StatusPage({ searchParams }: { searchParams: { nis
                     <Button asChild className="w-full" variant="outline">
                         <Link href="/ppdb">
                             <ArrowLeft className="mr-2 h-4 w-4" />
-                            Kembali ke PPDB
+                            Kembali ke PMBM
                         </Link>
                     </Button>
                 </CardContent>

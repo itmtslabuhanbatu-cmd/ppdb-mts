@@ -67,7 +67,7 @@ export default async function PPDBPage() {
         <div className="container py-12">
             <div className="mb-10 text-center">
                 <h1 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">
-                    Penerimaan Peserta Didik Baru (PPDBM)
+                    Penerimaan Murid Baru Madrasah (PMBM)
                 </h1>
                 <p className="mt-4 text-lg text-muted-foreground">
                     Tahun Pelajaran {academicYear}
