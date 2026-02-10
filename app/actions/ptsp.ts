@@ -107,7 +107,7 @@ ${attachmentUrl ? `<a href="${attachmentUrl}">Lihat Dokumen</a>` : "Tidak ada"}
         return { success: true, message: "Permohonan berhasil dikirim!" };
     } catch (err: any) {
         console.error("Error submit PTSP:", err);
-        return { error: "Gagal mengirim permohonan. Silahkan coba lagi." };
+        return { error: "Gagal: " + (err.message || "Terjadi kesalahan sistem") };
     }
 }
 

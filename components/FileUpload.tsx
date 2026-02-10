@@ -33,6 +33,11 @@ export default function FileUpload({
         setUploading(true);
 
         try {
+            // 1.5. Check File Size (Max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                throw new Error("Ukuran file maksimal 5MB");
+            }
+
             // 1. Determine type
             const isImage = file.type.startsWith("image/");
             setFileType(isImage ? "image" : "file");
@@ -63,7 +68,7 @@ export default function FileUpload({
             onUpload(publicUrl);
         } catch (error: any) {
             console.error("Upload error:", error);
-            alert("Gagal upload file: " + error.message);
+            alert("Gagal upload: " + (error.message || "Unknown error"));
         } finally {
             setUploading(false);
         }
