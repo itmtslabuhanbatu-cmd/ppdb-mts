@@ -52,11 +52,11 @@ export default function Footer() {
                         <ul className="space-y-3 text-sm">
                             <li className="flex items-start gap-3">
                                 <MapPin className="h-5 w-5 shrink-0 text-secondary" />
-                                <span>Jl. Ki Hajar Dewantara No. 123, Rantau Prapat, Labuhanbatu</span>
+                                <span>Jl. Kampung Baru Gg. Tsanawiyah No 150, Rantau Prapat, Labuhanbatu</span>
                             </li>
                             <li className="flex items-center gap-3">
                                 <Phone className="h-5 w-5 text-secondary" />
-                                <span>(0624) 123456</span>
+                                <span>(0624) 24713</span>
                             </li>
                             <li className="flex items-center gap-3">
                                 <Mail className="h-5 w-5 text-secondary" />
@@ -68,15 +68,15 @@ export default function Footer() {
                     <div>
                         <h3 className="mb-4 text-lg font-bold text-secondary uppercase tracking-wider">Ikuti Kami</h3>
                         <div className="flex gap-4">
-                            <Link href="#" className="rounded-full bg-white/10 p-3 hover:bg-secondary hover:text-primary transition-all hover:scale-110">
+                            <Link href="https://facebook.com/mtsn1labuhanbatuofficial" target="_blank" className="rounded-full bg-white/10 p-3 hover:bg-secondary hover:text-primary transition-all hover:scale-110">
                                 <Facebook className="h-5 w-5" />
                                 <span className="sr-only">Facebook</span>
                             </Link>
-                            <Link href="#" className="rounded-full bg-white/10 p-3 hover:bg-secondary hover:text-primary transition-all hover:scale-110">
+                            <Link href="https://www.instagram.com/mtsn1labuhanbatuofficial" target="_blank" className="rounded-full bg-white/10 p-3 hover:bg-secondary hover:text-primary transition-all hover:scale-110">
                                 <Instagram className="h-5 w-5" />
                                 <span className="sr-only">Instagram</span>
                             </Link>
-                            <Link href="#" className="rounded-full bg-white/10 p-3 hover:bg-secondary hover:text-primary transition-all hover:scale-110">
+                            <Link href="https://youtube.com/@mtsn1labuhanbatu81" target="_blank" className="rounded-full bg-white/10 p-3 hover:bg-secondary hover:text-primary transition-all hover:scale-110">
                                 <Youtube className="h-5 w-5" />
                                 <span className="sr-only">Youtube</span>
                             </Link>

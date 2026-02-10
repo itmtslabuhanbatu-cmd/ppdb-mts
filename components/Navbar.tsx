@@ -21,7 +21,7 @@ export default function Navbar() {
                     <div className="flex items-center gap-6">
                         <div className="flex items-center gap-2">
                             <Phone className="h-4 w-4" />
-                            <span>(0624) 123456</span>
+                            <span>(0624) 24713</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <Mail className="h-4 w-4" />
@@ -29,13 +29,13 @@ export default function Navbar() {
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
-                        <Link href="#" className="hover:text-secondary transition-colors">
+                        <Link href="https://facebook.com/mtsn1labuhanbatuofficial" target="_blank" className="hover:text-secondary transition-colors">
                             <Facebook className="h-4 w-4" />
                         </Link>
-                        <Link href="#" className="hover:text-secondary transition-colors">
+                        <Link href="https://www.instagram.com/mtsn1labuhanbatuofficial" target="_blank" className="hover:text-secondary transition-colors">
                             <Instagram className="h-4 w-4" />
                         </Link>
-                        <Link href="#" className="hover:text-secondary transition-colors">
+                        <Link href="https://youtube.com/@mtsn1labuhanbatu81" target="_blank" className="hover:text-secondary transition-colors">
                             <Youtube className="h-4 w-4" />
                         </Link>
                     </div>
@@ -113,7 +113,7 @@ export default function Navbar() {
                                         <div className="flex flex-col gap-3 text-sm text-slate-600">
                                             <div className="flex items-center gap-2">
                                                 <Phone className="h-4 w-4" />
-                                                <span>(0624) 123456</span>
+                                                <span>(0624) 24713</span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <Mail className="h-4 w-4" />

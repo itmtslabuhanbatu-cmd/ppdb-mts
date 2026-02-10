@@ -56,7 +56,7 @@ export default async function PPDBPage() {
     ];
 
     const contact = ppdbInfo.contact || {
-        address: "Jl. Kampung Baru Gg. Tsanawiyah No. 150 Rantauprapat",
+        address: "Jl. Kampung Baru Gg. Tsanawiyah No 150, Rantau Prapat",
         phone1: "0823 7027 2116",
         phone2: "0851 2206 4243",
         work_hours: "08.00 - 14.00 WIB"
