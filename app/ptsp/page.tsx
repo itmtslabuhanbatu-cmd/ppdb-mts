@@ -49,19 +49,11 @@ export default async function PtspPage() {
                         </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-8">
-                        <div className="bg-emerald-50 p-6 rounded-xl border border-emerald-100">
-                            <h2 className="text-xl font-bold text-emerald-800 mb-2">Kepastian Layanan</h2>
-                            <p className="leading-relaxed">
-                                Dengan adanya Digitalisasi Layanan/ PTSP Online MTsN 1 Labuhanbatu ini, maka masyarakat/ pemohon layanan akan mendapatkan kepastian layanan karena progress bisa dipantau secara realtime.
-                            </p>
-                        </div>
-                        <div>
-                            <h2 className="text-xl font-bold text-blue-800 mb-2">Terintegrasi dan Transparan</h2>
-                            <p className="leading-relaxed">
-                                Semua layanan yang disediakan melalui PTSP Online MTsN 1 Labuhanbatu ini bersifat transparan dan kedepannya akan terintegrasi dengan sistem PTSP Kankemenag Kab/ Kota dan Kanwil Kemenag Provinsi.
-                            </p>
-                        </div>
+                    <div className="bg-emerald-50 p-6 rounded-xl border border-emerald-100">
+                        <h2 className="text-xl font-bold text-emerald-800 mb-2">Kepastian Layanan</h2>
+                        <p className="leading-relaxed">
+                            Dengan adanya Digitalisasi Layanan/ PTSP Online MTsN 1 Labuhanbatu ini, maka masyarakat/ pemohon layanan akan mendapatkan kepastian layanan karena progress bisa dipantau secara realtime.
+                        </p>
                     </div>
                 </div>
 
