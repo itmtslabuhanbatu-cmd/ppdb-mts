@@ -71,59 +71,52 @@ export default async function PtspPage() {
                     Untuk mengajukan layanan pada PTSP Online MTsN 1 Labuhanbatu, Silakan pilih terlebih dahulu daftar layanan yang tersedia di bawah ini:
                 </p>
 
-                {!user ? (
-                    <Card className="max-w-md mx-auto text-center py-8 bg-slate-50 border-dashed">
-                        <CardContent>
-                            <FileText className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-                            <h3 className="text-xl font-bold mb-2">Login Diperlukan</h3>
-                            <p className="text-slate-500 mb-6">Silahkan login terlebih dahulu untuk mengajukan permohonan.</p>
-                            <Button asChild>
-                                <Link href="/ppdb/login?callbackUrl=/ptsp">Login / Register</Link>
-                            </Button>
-                        </CardContent>
-                    </Card>
-                ) : (
-                    <Tabs defaultValue="services" className="space-y-8">
-                        <div className="flex justify-center">
-                            <TabsList className="grid w-full max-w-md grid-cols-2">
-                                <TabsTrigger value="services">Daftar Layanan</TabsTrigger>
+                <Tabs defaultValue="services" className="space-y-8">
+                    <div className="flex justify-center">
+                        <TabsList className="grid w-full max-w-md grid-cols-2">
+                            <TabsTrigger value="services">Daftar Layanan</TabsTrigger>
+                            {user ? (
                                 <TabsTrigger value="history">Riwayat Permohonan</TabsTrigger>
-                            </TabsList>
-                        </div>
+                            ) : (
+                                <TabsTrigger value="history" disabled className="opacity-50 cursor-not-allowed" title="Login untuk melihat riwayat">Riwayat (Login)</TabsTrigger>
+                            )}
+                        </TabsList>
+                    </div>
 
-                        <TabsContent value="services" className="animate-in fade-in slide-in-from-left-4">
-                            <div className="bg-white rounded-xl shadow-sm border p-6 md:p-8">
-                                <ul className="space-y-4">
-                                    {SERVICES_LIST.map((itemName, index) => {
-                                        // Find matching service from DB
-                                        const service = services.find((s: any) => s.name?.toLowerCase().trim() === itemName.toLowerCase().trim());
-                                        const isAvailable = !!service;
-                                        const rowNumber = index + 1; // 1, 2, 3...
+                    <TabsContent value="services" className="animate-in fade-in slide-in-from-left-4">
+                        <div className="bg-white rounded-xl shadow-sm border p-6 md:p-8">
+                            <ul className="space-y-4">
+                                {SERVICES_LIST.map((itemName, index) => {
+                                    // Find matching service from DB
+                                    const service = services.find((s: any) => s.name?.toLowerCase().trim() === itemName.toLowerCase().trim());
+                                    const isAvailable = !!service;
+                                    const rowNumber = index + 1; // 1, 2, 3...
 
-                                        return (
-                                            <li key={index} className="flex items-start gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-0">
-                                                <span className="text-purple-700 font-bold text-lg min-w-[2rem] text-right">
-                                                    {rowNumber < 10 ? `0${rowNumber}` : rowNumber}.
-                                                </span>
-                                                <div className="flex-1">
-                                                    <div className="flex items-center justify-between flex-wrap gap-2">
-                                                        <span className="text-slate-700 font-medium text-lg">{itemName}</span>
-                                                        {isAvailable ? (
-                                                            <PtspRequestForm service={service} user={user} />
-                                                        ) : (
-                                                            <Badge variant="outline" className="text-slate-400 border-slate-200">
-                                                                Belum Tersedia
-                                                            </Badge>
-                                                        )}
-                                                    </div>
+                                    return (
+                                        <li key={index} className="flex items-start gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-0">
+                                            <span className="text-purple-700 font-bold text-lg min-w-[2rem] text-right">
+                                                {rowNumber < 10 ? `0${rowNumber}` : rowNumber}.
+                                            </span>
+                                            <div className="flex-1">
+                                                <div className="flex items-center justify-between flex-wrap gap-2">
+                                                    <span className="text-slate-700 font-medium text-lg">{itemName}</span>
+                                                    {isAvailable ? (
+                                                        <PtspRequestForm service={service} user={user} />
+                                                    ) : (
+                                                        <Badge variant="outline" className="text-slate-400 border-slate-200">
+                                                            Belum Tersedia
+                                                        </Badge>
+                                                    )}
                                                 </div>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </div>
-                        </TabsContent>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                    </TabsContent>
 
+                    {user && (
                         <TabsContent value="history" className="animate-in fade-in slide-in-from-left-4">
                             <Card>
                                 <CardHeader>
@@ -167,8 +160,8 @@ export default async function PtspPage() {
                                 </CardContent>
                             </Card>
                         </TabsContent>
-                    </Tabs>
-                )}
+                    )}
+                </Tabs>
             </div>
         </div>
     );

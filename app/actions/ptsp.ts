@@ -30,7 +30,8 @@ export async function createPtspRequest(prevState: any, formData: FormData) {
     const user = session?.user;
 
     if (!user) {
-        return { error: "Anda harus login untuk mengajukan permohonan." };
+        // Allow guest submission
+        // return { error: "Anda harus login untuk mengajukan permohonan." };
     }
 
     const serviceId = formData.get("serviceId") as string;
@@ -67,7 +68,7 @@ ${attachmentUrl ? attachmentUrl : "Tidak ada lampiran"}
 
     try {
         const { error } = await supabase.from("ptsp_requests").insert({
-            user_id: user.id,
+            user_id: user?.id || null, // Allow null for guests
             service_id: serviceId,
             full_name: fullName,
             details: details, // Storing formatted details here
