@@ -22,6 +22,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
     const sidebarItems = [
         { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
         { name: "Berita & Artikel", href: "/admin/berita", icon: FileText },
+        { name: "Guru & Staf", href: "/admin/guru", icon: Users },
         { name: "Pengumuman", href: "/admin/pengumuman", icon: Bell },
         { name: "Galeri Foto", href: "/admin/galeri", icon: ImageIcon },
         { name: "Layanan PTSP", href: "/admin/ptsp", icon: ClipboardList },

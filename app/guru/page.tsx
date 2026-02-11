@@ -1,8 +1,18 @@
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { teachers } from "@/lib/data";
+import { getTeachers } from "@/app/actions/teachers";
 
-export default function GuruPage() {
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export default async function GuruPage() {
+    let teachers = [];
+    try {
+        teachers = await getTeachers();
+    } catch (e) {
+        console.error("Failed to fetch teachers", e);
+    }
+
     return (
         <div className="container py-12">
             <div className="mb-10 text-center">
@@ -15,27 +25,39 @@ export default function GuruPage() {
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {teachers.map((teacher) => (
-                    <Card key={teacher.id} className="overflow-hidden text-center hover:shadow-lg transition-shadow">
-                        <div className="relative mx-auto mt-6 h-32 w-32 overflow-hidden rounded-full border-2 border-secondary">
-                            <Image
-                                src={teacher.image}
-                                alt={teacher.name}
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-                        <CardHeader>
-                            <CardTitle className="text-lg">{teacher.name}</CardTitle>
-                            <CardDescription className="text-primary font-medium">{teacher.role}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-sm text-muted-foreground">
-                                NIP. 19800101 200501 1 001
-                            </p>
-                        </CardContent>
-                    </Card>
-                ))}
+                {teachers.length === 0 ? (
+                    <div className="col-span-full text-center py-12 text-muted-foreground bg-slate-50 rounded-lg border border-dashed">
+                        Belum ada data guru.
+                    </div>
+                ) : (
+                    teachers.map((teacher: any) => (
+                        <Card key={teacher.id} className="overflow-hidden text-center hover:shadow-lg transition-shadow">
+                            <div className="relative mx-auto mt-6 h-32 w-32 overflow-hidden rounded-full border-2 border-secondary bg-slate-100">
+                                {teacher.image_url ? (
+                                    <Image
+                                        src={teacher.image_url}
+                                        alt={teacher.name}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                ) : (
+                                    <div className="flex h-full w-full items-center justify-center text-slate-400">
+                                        No Image
+                                    </div>
+                                )}
+                            </div>
+                            <CardHeader>
+                                <CardTitle className="text-lg">{teacher.name}</CardTitle>
+                                <CardDescription className="text-primary font-medium">{teacher.position}</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-sm text-muted-foreground">
+                                    {teacher.nip ? `NIP. ${teacher.nip}` : "-"}
+                                </p>
+                            </CardContent>
+                        </Card>
+                    ))
+                )}
             </div>
         </div>
     );

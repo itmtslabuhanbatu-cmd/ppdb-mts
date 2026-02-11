@@ -8,7 +8,8 @@ import { notFound } from "next/navigation";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export default async function SingleBeritaPage({ params }: { params: { id: string } }) {
+export default async function SingleBeritaPage(props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
     let post = null;
     try {
         post = await getPost(params.id);
