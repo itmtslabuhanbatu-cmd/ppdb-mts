@@ -25,9 +25,9 @@ export const news = [
 export const teachers = [
   {
     id: 1,
-    name: "Drs. H. Ahmad Fauzi, M.Pd",
+    name: "Mustafa Kamal Nasution, S.Pd.I., M.Pd.",
     role: "Kepala Madrasah",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop",
+    image: "/images/kepala-madrasah.jpg",
   },
   {
     id: 2,
@@ -56,7 +56,7 @@ export const carouselImages = [
 ];
 
 export const headmasterMessage = {
-  name: "Drs. H. Ahmad Fauzi, M.Pd",
+  name: "Mustafa Kamal Nasution, S.Pd.I., M.Pd.",
   message: "Assalamu'alaikum Warahmatullahi Wabarakatuh. Selamat datang di website resmi MTsN 1 Labuhanbatu. Kami berkomitmen untuk mencetak generasi yang beriman, berilmu, dan berakhlak mulia. Melalui website ini, kami berharap dapat memberikan informasi yang akurat dan transparan kepada masyarakat luas mengenai perkembangan pendidikan di madrasah kami.",
-  image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop",
+  image: "/images/kepala-madrasah.jpg",
 };
