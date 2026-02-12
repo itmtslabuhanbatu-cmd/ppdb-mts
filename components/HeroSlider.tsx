@@ -36,7 +36,7 @@ export default function HeroSlider({ images }: { images?: string[] }) {
             </div>
 
             <div className="absolute inset-0 z-20 container flex h-full flex-col items-center justify-center text-center text-white pointer-events-none">
-                <div className="pointer-events-auto">
+                <div className="pointer-events-auto flex flex-col items-center w-full px-4">
                     <div className="mb-4 animate-fade-in-down">
                         <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-white drop-shadow-lg leading-tight">
                             Penerimaan Murid Baru Madrasah (PMBM) Telah Dibuka
@@ -48,7 +48,7 @@ export default function HeroSlider({ images }: { images?: string[] }) {
                     <p className="mb-8 max-w-2xl text-lg text-slate-200 drop-shadow-md animate-fade-in-up delay-100">
                         MTsN 1 Labuhanbatu berkomitmen mencetak kader bangsa yang unggul dalam IMTAQ dan IPTEK.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-200">
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-200 w-full">
                         <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-bold px-8">
                             <Link href="/ppdb">Daftar Sekarang</Link>
                         </Button>
