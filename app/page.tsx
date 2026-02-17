@@ -61,22 +61,25 @@ export default async function Home() {
             <div className="lg:col-span-8 space-y-16">
 
               {/* Features / Quick Access - UPGRADED */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-3 md:grid-cols-3 gap-3 md:gap-6">
                 {[
-                  { label: "Layanan PTSP", desc: "Permohonan surat & legalisir", icon: BookOpen, color: "bg-green-500", href: "/ptsp", shadow: "shadow-green-200" },
-                  { label: "Rapor Digital", desc: "Hasil evaluasi siswa", icon: GraduationCap, color: "bg-yellow-500", href: "#", shadow: "shadow-yellow-200" },
-                  { label: "Galeri", desc: "Dokumentasi kegiatan", icon: ImageIcon, color: "bg-pink-500", href: "/galeri", shadow: "shadow-pink-200" }
+                  { label: "Layanan PTSP", desc: "Permohonan surat", icon: BookOpen, color: "bg-green-500", href: "/ptsp", shadow: "shadow-green-200" },
+                  { label: "Rapor Digital", desc: "Hasil evaluasi", icon: GraduationCap, color: "bg-yellow-500", href: "#", shadow: "shadow-yellow-200" },
+                  { label: "Galeri", desc: "Dokumentasi", icon: ImageIcon, color: "bg-pink-500", href: "/galeri", shadow: "shadow-pink-200" }
                 ].map((item, idx) => (
                   <Link href={item.href} key={idx} className="group relative" data-aos="fade-right" data-aos-delay={idx * 150}>
-                    <div className={`h-full p-6 rounded-2xl bg-white border border-slate-100 shadow-xl ${item.shadow} transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl overflow-hidden`}>
-                      <div className={`absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity`}>
+                    <div className={`h-full p-3 md:p-6 rounded-2xl bg-white border border-slate-100 shadow-lg md:shadow-xl ${item.shadow} transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl overflow-hidden flex flex-col items-center text-center md:block md:text-left`}>
+                      {/* Decorative Icon Background - Hidden on Mobile to keep it clean or adjusted */}
+                      <div className={`absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity hidden md:block`}>
                         <item.icon size={100} className={`text-${item.color.split('-')[1]}-500`} />
                       </div>
-                      <div className={`${item.color} w-14 h-14 rounded-xl flex items-center justify-center text-white mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                        <item.icon size={28} />
+
+                      <div className={`${item.color} w-10 h-10 md:w-14 md:h-14 rounded-xl flex items-center justify-center text-white mb-2 md:mb-4 shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                        <item.icon className="w-5 h-5 md:w-7 md:h-7" />
                       </div>
-                      <h3 className="text-xl font-bold text-slate-800 mb-1 group-hover:text-primary transition-colors">{item.label}</h3>
-                      <p className="text-sm text-slate-500">{item.desc}</p>
+
+                      <h3 className="text-xs md:text-xl font-bold text-slate-800 mb-0 md:mb-1 group-hover:text-primary transition-colors leading-tight">{item.label}</h3>
+                      <p className="text-[10px] md:text-sm text-slate-500 hidden md:block">{item.desc}</p>
                     </div>
                   </Link>
                 ))}
@@ -94,7 +97,7 @@ export default async function Home() {
                   </Button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-8">
                   {latestPosts.length === 0 ? (
                     <div className="col-span-full flex flex-col items-center justify-center py-16 text-muted-foreground bg-white rounded-2xl border-2 border-dashed border-slate-200">
                       <div className="bg-slate-100 p-4 rounded-full mb-4">
@@ -104,30 +107,41 @@ export default async function Home() {
                     </div>
                   ) : (
                     latestPosts.map((item: any, index: number) => (
-                      <Card key={item.id} className="group overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl h-full flex flex-col" data-aos="fade-up" data-aos-delay={index * 150}>
-                        <div className="relative h-56 w-full overflow-hidden">
+                      <Card key={item.id} className="group overflow-hidden border-none shadow-md md:shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl h-auto md:h-full flex flex-row md:flex-col bg-white" data-aos="fade-up" data-aos-delay={index * 150}>
+                        {/* Image Wrapper: Fixed small square on mobile, large full width on desktop */}
+                        <div className="relative w-28 h-28 md:h-56 md:w-full shrink-0 overflow-hidden">
                           <Image
                             src={item.image_url || "https://images.unsplash.com/photo-1503676260728-1c00da094a0b"}
                             alt={item.title}
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-110"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                          <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-xs font-bold px-3 py-1 rounded-full shadow-sm text-slate-800 flex items-center gap-1">
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity hidden md:block" />
+
+                          {/* Date Badge: Hidden on mobile image, shown on desktop image */}
+                          <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-xs font-bold px-3 py-1 rounded-full shadow-sm text-slate-800 hidden md:flex items-center gap-1">
                             <Calendar size={12} className="text-primary" />
                             {new Date(item.created_at).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
                           </div>
                         </div>
-                        <CardContent className="flex-1 p-6 relative bg-white">
-                          <h3 className="mb-3 text-xl font-bold leading-snug text-slate-800 group-hover:text-primary transition-colors line-clamp-2">
+
+                        {/* Content Wrapper */}
+                        <CardContent className="flex-1 p-3 md:p-6 relative flex flex-col justify-center md:block">
+                          {/* Mobile Date displayed here instead */}
+                          <div className="flex items-center gap-1 text-[10px] text-slate-400 mb-1 md:hidden">
+                            <Calendar size={10} />
+                            {new Date(item.created_at).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
+                          </div>
+
+                          <h3 className="mb-1 md:mb-3 text-sm md:text-xl font-bold leading-snug text-slate-800 group-hover:text-primary transition-colors line-clamp-2">
                             <Link href={`/berita/${item.id}`}>
                               {item.title}
                             </Link>
                           </h3>
-                          <p className="text-slate-500 text-sm line-clamp-3 mb-4 leading-relaxed">
+                          <p className="text-slate-500 text-sm line-clamp-2 mb-0 md:mb-4 leading-relaxed hidden md:block">
                             {item.excerpt}
                           </p>
-                          <div className="pt-4 border-t w-full mt-auto">
+                          <div className="pt-4 border-t w-full mt-auto hidden md:block">
                             <Link href={`/berita/${item.id}`} className="inline-flex items-center text-sm font-bold text-primary hover:underline">
                               Baca Selengkapnya <ChevronRight size={16} className="ml-1" />
                             </Link>
